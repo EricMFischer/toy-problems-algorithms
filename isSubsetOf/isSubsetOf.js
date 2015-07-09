@@ -22,6 +22,26 @@
  * including non-strings.
 */
 
+
 Array.prototype.isSubsetOf = function(array){
-  // Your code here
+  // eliminate duplicates in this
+  // this.sort();
+  // for (var i = 0; i < this.length; i++) {
+  //   if (this[i] === this[i+1]) {
+  //     this.splice(this[i+1], 1);
+  //   }
+  // }
+  // console.log(this);
+
+  // iterate through input array
+  for (var i = 0; i < this.length; i++) {
+    if (array.indexOf(this[i]) === -1) {
+      return false;
+    }
+    return true;
+  }
 };
+
+
+var b = ['merge','reset','reset'];
+console.log(b.isSubsetOf(['reset','merge','add','commit'])); // true 
