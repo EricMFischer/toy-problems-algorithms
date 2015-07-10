@@ -21,8 +21,23 @@
  */
 
 var nthFibonacci = function (n) {
-  // TODO: implement me!
+  // create an array that does what Fibonacci does
+  var fibonacci = [0];
+  var recurse = function(n) {
+    if (n === 0) {
+      return;
+    } else {
+      for (var i = 1; i <= n; i++) {
+        fibonacci[i] = (fibonacci[i-1] + (fibonacci[i-2]) || 1(fibonacci[i-1] + (fibonacci[i-2] || i) )) + fibonacci[i-1];
+                        // hmm... how do I derive fibonacci[i] before it exists... ? (fibonacci[i-1] + (fibonacci[i-2] || i) )
+      }
+      recurse(n-1);
+    }
+  }
+  recurse(n);
+
+  return fibonacci//[n];
 };
 
-
+console.log(nthFibonacci(4));
 
