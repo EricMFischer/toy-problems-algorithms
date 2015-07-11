@@ -34,8 +34,58 @@
 var i;
 
 // Feel free to add helper functions if needed.
+// var sortOnce = function(array) {
+//   var length = array.length;
+//   for (var i = 0; i < length; i++) {
+//     if (array[i] > array[i+1]) {
+//       var temp = array[i];
+//       array[i] = array[i+1];
+//       array[i+1] = temp;
+//     }
+//   }
+//   return array;
+// };
+
+// var isSorted = function(array) {
+//   var length = array.length;
+//   for(var i = 0; i < length; i++) {
+//     if(array[i] > array[i+1]) {
+//       return false;
+//     }
+//   }
+//   return true;
+// }
+
+// Time complexity of bubbleSort is linear.
+// Extra credit: I'm exiting the function early if it isSorted, but since I've implemented
+// a for loop in isSorted, I'm thinking that my time complexity is still linear?
+
+// var bubbleSort = function(array) {
+//   if (isSorted(array)) {
+//     return;
+//   } else {
+//     sortOnce(array);
+//   }
+//   return array;
+// };
+
 
 
 var bubbleSort = function(array) {
-  // Your code here.
+  var length = array.length;
+  var sorted = false;
+  while (!sorted) {
+    sorted = true;
+    for (var i = 0; i < length; i++) {
+      if (array[i] > array[i+1]) {
+        sorted = false;
+        var temp = array[i];
+        array[i] = array[i+1];
+        array[i+1] = temp;
+      }
+    }
+  }
+  return array;
 };
+
+console.log(bubbleSort([4,3,2,1]));

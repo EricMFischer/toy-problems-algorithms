@@ -17,27 +17,37 @@
 *
 */
 
-var rockPaperScissors = function (n) {
-  var rounds = n;
+
+
+/*
+When recurse runs for the first time, we can treat line 30 as a "master for loop." This loop determines
+how many branches we'll make initially in our decision tree.
+
+Rounds is what determines how many levels we go down through recursion.
+*/
+
+var rockPaperScissors = function(n) {
+  var rounds = (n || 3);
   var combinations = [];
+  var result = [];
   var choices = ['rock', 'paper', 'scissors'];
 
-  var recurse = function(roundsLeft, handPlayed) {
-    if (roundsLeft === 0) {
-      combinations.push(handPlayed);
+  var recurse = function(rounds) {
+    if (rounds === 0) {
+      combinations.push(result.slice());
       return;
     } else {
-      for (var i=0; i<choices.length; i++) {
-        var current = choices[i];
-        recurse(roundsLeft - 1, handPlayed.concat(current));
-
+      for (var i=0; i<3; i++) {    // i < 3, you have 3 branches (rock, paper, scissors) no matter how many rounds there are
+        result.push(choices[i]);
+        recurse(rounds-1);
+        result.pop();
       }
     }
-  };
-  recurse(rounds, []);
+  }
 
+  recurse(rounds);
   return combinations;
 }
 
-console.log(rockPaperScissors(3));
+console.log(rockPaperScissors(4));
 
