@@ -31,7 +31,7 @@
 */
 
 // Introduce i into the global scope so we can test function efficiency
-var i;
+// var i;
 
 // Feel free to add helper functions if needed.
 // var sortOnce = function(array) {
@@ -44,7 +44,7 @@ var i;
 //     }
 //   }
 //   return array;
-// };
+// }
 
 // var isSorted = function(array) {
 //   var length = array.length;
@@ -56,10 +56,6 @@ var i;
 //   return true;
 // }
 
-// Time complexity of bubbleSort is linear.
-// Extra credit: I'm exiting the function early if it isSorted, but since I've implemented
-// a for loop in isSorted, I'm thinking that my time complexity is still linear?
-
 // var bubbleSort = function(array) {
 //   if (isSorted(array)) {
 //     return;
@@ -69,14 +65,11 @@ var i;
 //   return array;
 // };
 
-
-
 var bubbleSort = function(array) {
-  var length = array.length;
   var sorted = false;
   while (!sorted) {
     sorted = true;
-    for (var i = 0; i < length; i++) {
+    for (var i = 0; i < array.length; i++) {
       if (array[i] > array[i+1]) {
         sorted = false;
         var temp = array[i];
@@ -88,4 +81,4 @@ var bubbleSort = function(array) {
   return array;
 };
 
-console.log(bubbleSort([4,3,2,1]));
+// console.log(bubbleSort([4,3,2,1]));
