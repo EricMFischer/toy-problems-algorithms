@@ -14,14 +14,8 @@
 *   - Make your function return answers for any number of rounds.
 * Example:
 * rockPaperScissors(5); // => [['rock', 'rock', 'rock', 'rock', 'rock'], etc...]
-*
-*/
 
-
-
-/*
-When recurse runs for the first time, we can treat line 30 as a "master for loop." This loop determines
-how many branches we'll make initially in our decision tree.
+When recurse runs for the first time, we can treat line 30 as a "master for loop." This loop determines how many branches we'll make initially in our decision tree.
 
 Rounds is what determines how many levels we go down through recursion.
 */
@@ -37,7 +31,7 @@ var rockPaperScissors = function(n) {
       combinations.push(result.slice());
       return;
     } else {
-      for (var i=0; i<3; i++) {    // i < 3, you have 3 branches (rock, paper, scissors) no matter how many rounds there are
+      for (var i=0; i<3; i++) {    // 3 branches in our decision tree
         result.push(choices[i]);
         recurse(rounds-1);
         result.pop();
@@ -49,5 +43,4 @@ var rockPaperScissors = function(n) {
   return combinations;
 }
 
-console.log(rockPaperScissors(4));
-
+// console.log(rockPaperScissors(4));
