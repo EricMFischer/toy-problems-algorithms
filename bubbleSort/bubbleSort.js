@@ -64,7 +64,9 @@
 //   }
 //   return array;
 // };
-
+// input, outputs, constraints, space & time complexity
+// sorted array is being built up from the right side
+// this is Quadratic (n^2) time complexity (it's essentially like have 2 for loops)
 var bubbleSort = function(array) {
   var sorted = false;
   while (!sorted) {
@@ -72,7 +74,7 @@ var bubbleSort = function(array) {
     for (var i = 0; i < array.length; i++) {
       if (array[i] > array[i+1]) {
         sorted = false;
-        var temp = array[i];
+        var temp = array[i]; // swap function
         array[i] = array[i+1];
         array[i+1] = temp;
       }
@@ -82,3 +84,20 @@ var bubbleSort = function(array) {
 };
 
 // console.log(bubbleSort([4,3,2,1]));
+
+// Solution from lecture
+// var bubbleSort = function(array) {
+//   var sorted = false;
+//   while (!sorted) {
+//     for (var i = 0; i < array.length; i++) {
+//       if (array[i] > array[i+1]) {
+//         sorted = false;
+//         var temp = array[i]; // swap function
+//         array[i] = array[i+1];
+//         array[i+1] = temp;
+//       }
+//     }
+//   }
+//   if (sorted === false) {break;}
+//   return array;
+// };

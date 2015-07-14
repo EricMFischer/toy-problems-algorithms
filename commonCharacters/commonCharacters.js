@@ -11,5 +11,17 @@
  */
 
 var commonCharacters = function(string1, string2) {
-  // TODO: Your code here!
+  var string2Tracker = {};
+  for (var i=0; i<string2.length; i++) {
+    string2Tracker[string2[i]] = true;
+  }
+  var answer = '';
+  for (var j=0; j<string1.length; j++) {
+    if (string2Tracker[string1[j]] === true) {
+      answer += string1[j];
+    }
+  }
+  return answer;
 };
+
+console.log(commonCharacters('acexivou', 'aegihobu'));
