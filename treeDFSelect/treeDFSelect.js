@@ -35,7 +35,33 @@ var Tree = function(value){
   this.children = [];
 };
 
+// filter function takes: value, depth
+
 Tree.prototype.DFSelect = function(filter) {
+  var result = [];
+  var tooples = [];
+
+  // need a function to collect the nodes' values and depths in tooples -- so I can use that for filter
+  var nodes = function(node, depth) {
+    var toople = ([node.value, depth]);
+    tooples.push(toople);
+    node.children.forEach(function(child) {
+      nodes(child, depth + 1);
+    });
+  }
+  nodes(this, 0);
+
+  // now that all node value-depth tooples are in my var tooples, I can use this array for filter
+  tooples.forEach(function(toople) {
+    var value = toople[0];
+    var depth = toople[1];
+
+    if (filter.call(this, value, depth)) {
+      result.push(value);
+    }
+  });
+
+  return result;
 };
 
 
