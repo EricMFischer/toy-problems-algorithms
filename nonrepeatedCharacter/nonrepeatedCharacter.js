@@ -24,5 +24,5 @@ var firstNonRepeatedCharacter = function(string) {
 
 // Both for loops are linear for a time complexity of 2n -> n. Nested for loops (worse) create a time complexity of n^2.
 
-// var result = firstNonRepeatedCharacter('CBAB');
-// console.log(result);
+var result = firstNonRepeatedCharacter('CBAB');
+console.log(result);

@@ -28,12 +28,12 @@ var rockPaperScissors = function(n) {
 
   var recurse = function(rounds) {
     if (rounds === 0) {
-      combinations.push(result.slice());
+      combinations.push(result.slice()); // slice does not alter array
       return;
     } else {
-      for (var i=0; i<3; i++) {    // 3 branches in our decision tree
+      for (var i=0; i<3; i++) {    // 3 initial branches
         result.push(choices[i]);
-        recurse(rounds-1);
+        recurse(rounds-1); // smaller version of problem. 3^3 = 27
         result.pop();
       }
     }
@@ -43,4 +43,4 @@ var rockPaperScissors = function(n) {
   return combinations;
 }
 
-// console.log(rockPaperScissors(4));
+console.log(rockPaperScissors(3));
