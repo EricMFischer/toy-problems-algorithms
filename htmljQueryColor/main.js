@@ -9,19 +9,25 @@ $(function(){
   var spanWrap = function(text) {
     return '<span>' + text.split(" ").join('</span><span> ') + '</span>';
   }
-  var paragraphText = $("p")[0].innerHTML;
+  var paragraph1Text = $("p")[0].innerHTML;
+  var paragraph2Text = $("p")[1].innerHTML;
 
-  var wrapped = spanWrap(paragraphText);
-  $("p")[0].innerHTML = wrapped;
+  var wrapped1 = spanWrap(paragraph1Text);
+  var wrapped2 = spanWrap(paragraph2Text);
+  $("p")[0].innerHTML = wrapped1;
+  $("p")[1].innerHTML = wrapped2;
   // --------------STEP 2--------------
   // Next, change spans to random colors, once per second
-  var randomColor = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
+  var randomColor = function(){
+    return 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
+  }
 
-  $(document).ready(function() {
+  var spanColor = function() {
     var spans = $('span');
     for (var i=0; i<spans.length; i++) {
       $(spans[i]).css('color', randomColor());
     }
-  });
+  }
+  setInterval(spanColor(), 3000);
 
 });
