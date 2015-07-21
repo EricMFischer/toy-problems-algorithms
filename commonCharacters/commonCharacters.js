@@ -10,37 +10,22 @@
  * Extra credit: Extend your function to handle more than two input strings.
  */
 
-// var commonCharacters = function(string1, string2) {
-//   var string2Tracker = {};
-//   for (var i=0; i<string2.length; i++) {
-//     string2Tracker[string2[i]] = true;
-//   }
-//   var answer = '';
-//   for (var j=0; j<string1.length; j++) {
-//     if (string2Tracker[string1[j]] === true) {
-//       string2Tracker[string1[j]] === false;
-//       answer += string1[j];
-//     }
-//   }
-//   return answer;
-// };
 
 var commonCharacters = function(str1, str2) {
-  var common = intersection(objectify(str1), objectify(str2));
-    return str1.split("").reduce(function(result, chara) {
-      if (common[chara]) {result += chara;}
-    }, "");
+  var str1obj = objectify(str1);
+  var str2obj = objectify(str2);
+  var string = '';
+  for (var key in str1obj) {
+    if (str2obj[key] === true) {
+      string += key;
+    }
+
+  }
+  return string;
 }
 
-var intersection = function(set1, set2) {
-  return Object.keys(set1).reduce(function(out, val) {
-      if (val in set2) {out[val] = true;}
-      return out;
-  }, {});
-}
-
-var objectify = function(str) {
-  return str.split('').reduce(function(obj, chara) {
+var objectify = function(string) {
+  return string.split('').reduce(function(obj, chara) {
     if (chara.match(/[a-z]/i)) {obj[chara] = true;}
     return obj;
   }, {});

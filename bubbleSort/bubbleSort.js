@@ -30,74 +30,27 @@
  *
 */
 
-// Introduce i into the global scope so we can test function efficiency
-// var i;
-
-// Feel free to add helper functions if needed.
-// var sortOnce = function(array) {
-//   var length = array.length;
-//   for (var i = 0; i < length; i++) {
-//     if (array[i] > array[i+1]) {
-//       var temp = array[i];
-//       array[i] = array[i+1];
-//       array[i+1] = temp;
-//     }
-//   }
-//   return array;
-// }
-
-// var isSorted = function(array) {
-//   var length = array.length;
-//   for(var i = 0; i < length; i++) {
-//     if(array[i] > array[i+1]) {
-//       return false;
-//     }
-//   }
-//   return true;
-// }
-
-// var bubbleSort = function(array) {
-//   if (isSorted(array)) {
-//     return;
-//   } else {
-//     sortOnce(array);
-//   }
-//   return array;
-// };
+// Things to consider
 // input, outputs, constraints, space & time complexity
 // sorted array is being built up from the right side
 // this is Quadratic (n^2) time complexity (it's essentially like have 2 for loops)
+
 var bubbleSort = function(array) {
   var sorted = false;
+  var length = array.length;
   while (!sorted) {
     sorted = true;
-    for (var i = 0; i < array.length; i++) {
+    for (var i=0; i<length; i++) {
       if (array[i] > array[i+1]) {
         sorted = false;
-        var temp = array[i]; // swap function
+        var temp = array[i];
         array[i] = array[i+1];
         array[i+1] = temp;
       }
     }
   }
   return array;
-};
+}
 
-// console.log(bubbleSort([4,3,2,1]));
+console.log(bubbleSort([4,3,2,1]));
 
-// Solution from lecture
-// var bubbleSort = function(array) {
-//   var sorted = false;
-//   while (!sorted) {
-//     for (var i = 0; i < array.length; i++) {
-//       if (array[i] > array[i+1]) {
-//         sorted = false;
-//         var temp = array[i]; // swap function
-//         array[i] = array[i+1];
-//         array[i+1] = temp;
-//       }
-//     }
-//   }
-//   if (sorted === false) {break;}
-//   return array;
-// };

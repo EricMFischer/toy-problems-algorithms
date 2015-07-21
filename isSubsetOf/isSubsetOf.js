@@ -14,39 +14,25 @@
  *
  * Extra credit: Make the method work for arrays that contain any value,
  * including non-strings.
-
-  Array.prototype.isSubsetOf = function(array){
-    // iterate through input array
-    for (var i = 0; i < this.length; i++) {
-      if (array.indexOf(this[i]) === -1) {
-        return false;
-      }
-      return true;
-    }
-  };
 */
 
 Array.prototype.isSubsetOf = function(array) {
-  return isSubsetObjs(objectify(this), objectify(array));
+  return subsetTruth(objectify(this), objectify(array));
 }
 
-var isSubsetObjs = function(obj1, obj2) {
-  for (var key in obj1) {
-    if (!obj2.hasOwnProperty(key)) {
-      return false;
-    }
+var subsetTruth = function(calledOnObj, inputObj) {
+  for (var key in calledOnObj) {
+    if (!inputObj.hasOwnProperty(key)) {return false;}
   }
   return true;
 }
 
-// for edge case of duplicates, make an object with keys set to true where appropriate
 var objectify = function(array) {
-  // reduce is a good way to build up an empty object
   return array.reduce(function(obj, item) {
     obj[item] = true;
-    return obj; // return what you just modified (so you can keep chaining)
+    return obj;
   }, {});
 }
 
-// var b = ['merge','reset','reset'];
-// console.log(b.isSubsetOf(['reset','merge','add','commit'])); // true 
+var b = ['merge','reset','reset']
+console.log(b.isSubsetOf(['reset','merge','add','commit'])) // true

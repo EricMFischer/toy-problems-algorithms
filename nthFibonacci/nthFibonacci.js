@@ -34,39 +34,38 @@
 //   }
 //   recurse(n);
 
-//   return fibonacci//[n];
+//   return fibonacci[n];
 // };
-// console.log(nthFibonacci(4));
+// console.log(nthFibonacci(3));
 
 // Solution
-var fibRecurse = function(n) {
-  return n < 2 ? n : fibRecurse(n-1) + fibRecurse(n-2);
+var nthFibonacci = function(n) {
+  var fibonacci = [0,1];
+  for (var n = n; n > 1; n--) {
+    fibonacci.push(fibonacci.shift() + fibonacci[0]);
+  }
+  return fibonacci[n];
 }
+
+console.log(nthFibonacci(4));
+// Space complexity is constant because we're disregarding the previous n's with the exception of the last two
+
 
 // As we increment up, we save each value in the array. So we'd just be accessing the last two places in our array without having to calculate them again. This is linear time.
-var fibMem = function(n) {
-  var mem = [];
-  for (var i=0; i<n; i++) {
-    mem[i] = i < 2 ? i : mem[i-1] + mem[i-2];
-  }
-  return mem[n];
-}
+// var fibMem = function(n) {
+//   var mem = [];
+//   for (var i=0; i<n; i++) {
+//     mem[i] = i < 2 ? i : mem[i-1] + mem[i-2];
+//   }
+//   return mem[n];
+// }
 
 // You can optimize it more (for constant time) by storing the nFib.mem array outside of the function. That way you're just looking up values in a global scope if you were to call it again with the same argument
-var fibMem = function(n) {
-  if (fibMem.mem[n]) {return fibMem.mem[n];}
-  for (var i=0; i<=n; i++) {
-    fibMem.mem[i] = i < 2 ? i : fibMem.mem[i-2] + fibMem.mem[i-1];
-  }
-  return fibMem.mem[n];
-}
-fibMem.mem = [];
-
-// Even more simple. Space complexity is constant because we're disregarding the previous n's with the exception of the last two
-var fibSpace = function(n) {
-  var mem = [0,1];
-  for (; n > 1; n--) {
-    mem.push(mem.shift() + mem[0]);
-  }
-  return mem[n];
-}
+// var fibMem = function(n) {
+//   if (fibMem.mem[n]) {return fibMem.mem[n];}
+//   for (var i=0; i<=n; i++) {
+//     fibMem.mem[i] = i < 2 ? i : fibMem.mem[i-2] + fibMem.mem[i-1];
+//   }
+//   return fibMem.mem[n];
+// }
+// fibMem.mem = [];

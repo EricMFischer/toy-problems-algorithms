@@ -11,30 +11,18 @@
 // if return answer is:
 // positive --> b goes first
 // negative --> a goes first
+
 var largestProductOfThree = function(array) {
   array.sort(function(a,b) {return b-a;});
-  
+  var length = array.length;
+  var positives = array[0] * array[1] * array[2];
+  var twoNegatives = array[0] * array[length-1] * array[length - 2];
 
-
-  var result = 1;
-  for (var i=0; i<3; i++) {
-    result *= array[i];
-  }
-  return result;
+  if (positives > twoNegatives) {return positives;}
+  else {return twoNegatives;}
 };
 
 
-console.log(largestProductOfThree([5, 10, 4, 6, 2, 3, 9, 4]));
+console.log(largestProductOfThree([5, -10, 4, 6, 2, 3, -8, 4]));
 
-// Tip for refactoring
-// Take the product of the largest 3 numbers, or the product of the 2 smallest numbers and the largest number
-
-// check out RADIX sort
-
-var largestProductOfThree = function(array) {
-  var newArr = array.slice().sort();
-
-  var threePositives = newArr[n-1] * newArr[n-2] * newArr[n-3];
-
-
-}
+// Tip for refactoring: check out RADIX sort

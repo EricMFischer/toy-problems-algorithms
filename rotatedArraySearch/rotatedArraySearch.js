@@ -16,6 +16,26 @@
  */
 
 var rotatedArraySearch = function (rotated, target) {
-  // Your code here:
+  var leftNum = rotated[0];
+  var rightNum = rotated[rotated.length - 1];
+  var midIndex = Math.floor(rotated.length / 2);
+  var middleNum = rotated[midIndex];
+  var indexOfTarget = null;
+
+  if (leftNum < middleNum) {
+    // 1st half (at least) of array is in increasing order
+    if (target > leftNum)
+    rotatedArraySearch(rotated.slice(0, midIndex))
+  }
+
+  if (rightNum > middleNum) {
+    // 2nd half (at least) of array is in increasing order
+    if (target < rightNum && target > leftNum) {
+      // target is in this part of the array
+
+    }
+  }
+
+  return indexOfTarget;
 };
 

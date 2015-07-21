@@ -1,5 +1,4 @@
 /**
-  *
   * Implement a `DFSelect` method on this Tree class.
   *
   * DFSelect accepts a filter function, calls that function on each of the nodes
@@ -29,75 +28,53 @@
 /*
  * Basic tree that stores a value.
  */
-
 var Tree = function(value){
   this.value = value;
   this.children = [];
 };
 
+// Breadth-first search: uses a queue. Don't use this method for a massive tree
+// Depth-first search: doesn't have to keep track (w/ a queue) of all nodes
 
-// Getting all the nodes in order is the result of a SIDE EFFECT, as opposed to a pure function
-// This is linear because we're visiting all of the nodes once
 Tree.prototype.DFSelect = function(filter) {
-  var result = [];
+  var results = [];
 
-  var nodes = function(node, depth) {
+  var depthFirst = function(node, depth) {
     if (filter(node.value, depth)) {
-      result.push(node.value);
+      results.push(node.value);
     }
-    node.children.forEach(function(child) { // base case: when for loop ends
-      nodes(child, depth + 1);
-    }); // there's an implicit basecase here -- when there are no more children
+    node.children.forEach(function(child) {
+      depthFirst(child, depth + 1);
+    });
   }
-  nodes(this, 0);
+  depthFirst(this, 0);
 
-  return result;
-};
+  return results;
+}
 
-// Breadth-first search: use a queue. don't use this method for a massive tree
-// Depth-first search: doesn't have to keep track (w/ a queue) all nodes
+// Solution without a subroutine, because I'm becoming a badass
+// Tree.prototype.DFSelect = function(filter, depth, results) {
+//   var results = results || [];
+//   var depth = depth || 0;
 
-// Tree.prototype.DFSelect = function(filter) {
-//   var result = [];
-//   var tooples = [];
 
-//   // need a function to collect the nodes' values and depths in tooples -- so I can use that for filter
-//   var nodes = function(node, depth) {
-//     var toople = [node.value, depth];
-//     tooples.push(toople);
-//     node.children.forEach(function(child) {
-//       nodes(child, depth + 1);
-//     });
+//   if (filter(this.value, depth)) {
+//     results.push(this.value);
 //   }
-//   nodes(this, 0);
 
-//   // now that all node value-depth tooples are in my var tooples, I can use this array for filter
-//   tooples.forEach(function(toople) {
-//     var value = toople[0];
-//     var depth = toople[1];
+//   for (var i=0; i<this.children.length; i++) {
+//     var child = this.children[i];
+//     child.DFSelect(filter, depth + 1, results);
+//   }
 
-//     if (filter.call(this, value, depth)) {
-//       result.push(value);
-//     }
-//   });
-
-//   return result;
+//   return results;
 // };
 
-/**
- * You shouldn't need to change anything below here, but feel free to look.
-  */
-
-/**
-  * add an immediate child
-  * (wrap values in Tree nodes if they're not already)
-  */
 
 Tree.prototype.addChild = function(child){
   if (!child || !(child instanceof Tree)){
     child = new Tree(child);
   }
-
   if(!this.isDescendant(child)){
     this.children.push(child);
   }else {
@@ -106,7 +83,6 @@ Tree.prototype.addChild = function(child){
   // return the new child node for convenience
   return child;
 };
-
 /**
   * check to see if the provided tree is already a child of this
   * tree __or any of its sub trees__
@@ -125,7 +101,6 @@ Tree.prototype.isDescendant = function(child){
     return false;
   }
 };
-
 /**
   * remove an immediate child
   */
@@ -139,3 +114,15 @@ Tree.prototype.removeChild = function(child){
   }
 };
 
+
+var root1 = new Tree(1);
+var branch2 = root1.addChild(2);
+var branch3 = root1.addChild(3);
+var leaf4 = branch2.addChild(4);
+var leaf5 = branch2.addChild(5);
+var leaf6 = branch3.addChild(6);
+var leaf7 = branch3.addChild(7);
+
+console.log(root1.DFSelect(function (value, depth) {
+  return value % 2;
+}));

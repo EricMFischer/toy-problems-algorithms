@@ -21,25 +21,25 @@ Rounds is what determines how many levels we go down through recursion.
 */
 
 var rockPaperScissors = function(n) {
-  var rounds = (n || 3);
+  var rounds = n || 3;
   var combinations = [];
-  var result = [];
   var choices = ['rock', 'paper', 'scissors'];
+  var game = [];
 
-  var recurse = function(rounds) {
+  var subroutine = function(rounds) {
     if (rounds === 0) {
-      combinations.push(result.slice()); // slice does not alter array
+      combinations.push(game.slice());
       return;
     } else {
-      for (var i=0; i<3; i++) {    // 3 initial branches
-        result.push(choices[i]);
-        recurse(rounds-1); // smaller version of problem. 3^3 = 27
-        result.pop();
+      for (var i = 0; i < 3; i++) {
+        game.push(choices[i]);
+        subroutine(rounds-1);
+        game.pop();
       }
     }
   }
+  subroutine(rounds);
 
-  recurse(rounds);
   return combinations;
 }
 

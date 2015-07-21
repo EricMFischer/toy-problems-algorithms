@@ -6,23 +6,20 @@
  *   firstNonRepeatedCharacter('AACBDB'); // => 'C'
  */
 
-
+// Both for loops are linear for a time complexity of 2n -> n. Nested for loops (worse) create a time complexity of n^2.
 var firstNonRepeatedCharacter = function(string) {
   var obj = {};
-  for (var i = 0; i < string.length; i++) {
-    letter = string[i];
+  for (var i=0; i<string.length; i++) {
+    var letter = string[i];
     if (!obj[letter]) {obj[letter] = 1;}
     else {obj[letter]++;}
   }
 
-  for (var i=0; i < string.length; i++) {
-    letter = string[i];
-    if (obj[letter] === 1) {return letter;}
+  for (var key in obj) {
+    if (obj[key] === 1) {return key;}
   }
   return null;
 }
 
-// Both for loops are linear for a time complexity of 2n -> n. Nested for loops (worse) create a time complexity of n^2.
-
-var result = firstNonRepeatedCharacter('CBAB');
+var result = firstNonRepeatedCharacter('EBEAB');
 console.log(result);
