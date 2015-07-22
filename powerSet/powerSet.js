@@ -18,4 +18,29 @@
  */
 
 var powerSet = function(str){
+  var characters = str.split('');
+  var charLength = characters.length;
+  var results = [''];
+
+  var subroutine = function(characters, lengthOfOutput) {
+    if (lengthOfOutput === charLength) {
+      return;
+
+    } else {
+      for (var i=0; i<characters.length; i++) {
+        var initialBranch = characters[i];
+        results.push(initialBranch);
+        subroutine(characters, lengthOfOutput + 1);
+      }
+    }
+  };
+
+  subroutine(characters, 1);
+  
+
+  // sort my results
+  // eliminate duplicates
+  return results;
 }
+
+console.log(powerSet('abc'));
