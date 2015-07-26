@@ -16,6 +16,7 @@
  *   var welcome = compose(greet, exclaim);
  *   welcome('phillip'); // 'hi: PHILLIP!'
  *
+
  * Step 2: Implement the function Pipe:
  *
  * Pipe composes a series of functions and returns the resulting function.
@@ -33,18 +34,16 @@
 
 'use strict';
 
-var compose = function(){
+var compose = function() {
   var args = arguments;
   var argsLength = arguments.length;
-
   return function(x) {
-    var local = x;
     for (var i=argsLength-1; i>=0; i--) {
-      x = args[i](local);
-      return args[i-1](x); // fix
-    } 
+      x = args[i](x);
+    }
+    return x;
   }
-};
+}
 
 var greet = function(name){ return 'hi: ' + name;}
 var exclaim = function(statement) { return statement.toUpperCase() + '!';}
@@ -53,22 +52,20 @@ console.log(welcome('phillip')); // 'hi: PHILLIP!'
 
 
 
-var pipe = function(){
+var pipe = function() {
   var args = arguments;
   var argsLength = arguments.length;
-
   return function(x) {
-    var local = x;
-    for (var i=0; i<argsLength-1; i++) {
-      x = args[i](local);
-      return args[i+1](x); // fix
-    } 
+    for (var i=0; i<=argsLength-1; i++) {
+      x = args[i](x);
+    }
+    return x;
   }
-};
+}
 
 var add2 = function(number){ return number + 2; }
 var multiplyBy3 = function(number){ return number * 3; }
-var answer1 = pipe(add2, multiplyBy3)(5) // 21
-var answer2 = pipe(add2, multiplyBy3, multiplyBy3)(5) // 63
-console.log(answer1);
-console.log(answer2);
+var answer1 = pipe(add2, multiplyBy3)(5);
+var answer2 = pipe(add2, multiplyBy3, multiplyBy3)(5);
+console.log(answer1); // 21
+console.log(answer2); // 63

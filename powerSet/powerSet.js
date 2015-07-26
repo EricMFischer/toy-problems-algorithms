@@ -17,26 +17,27 @@
  * -> ["", "j", "ju", "jm", "jp", "jmu", "jmp", "jpu", "jmpu", "u", "m", "p", "mu", "mp", "pu", "mpu"]
  */
 
+
 var powerSet = function(str){
-  var characters = str.split('');
-  var charLength = characters.length;
+  str = str || ''; // take care of edge case
+  var charArray = str.split('');
+  var charLength = charArray.length;
+  var letters = {}; // tracks all unique values
   var results = [''];
 
-  var subroutine = function(characters, lengthOfOutput) {
-    if (lengthOfOutput === charLength) {
-      return;
+  for (var i=0; i<charLength; i++) {
+    letters[i] = charArray[i];
+  }
 
-    } else {
-      for (var i=0; i<characters.length; i++) {
-        var initialBranch = characters[i];
-        results.push(initialBranch);
-        subroutine(characters, lengthOfOutput + 1);
-      }
+  var subroutine = function(charArray, lengthOfOutput) {
+    for (var i=0; i<charArray.length; i++) {
+      var initialBranch = charArray[i];
+      oneResult.push(initialBranch);
+      subroutine(charArray, lengthOfOutput + 1);
+      oneResult.pop();
     }
-  };
-
-  subroutine(characters, 1);
-  
+  }
+  subroutine(charArray, 0);
 
   // sort my results
   // eliminate duplicates
@@ -44,3 +45,7 @@ var powerSet = function(str){
 }
 
 console.log(powerSet('abc'));
+
+
+
+
