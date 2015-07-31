@@ -25,19 +25,14 @@
  */
  // Progress on balancedParens
 var balancedParens = function(input){
-  var parentheses = '()[]{}';
   var stack = [];
-
-  for (var i=0; i<input.length; i++) {
-    var character = input[i];
-    var parenPosition = parentheses.indexOf(character);
-
-    if (parenPosition % 2 === 0) {
-      stack.push(character);
-      stack.push(parenPosition + 1]);
-
-    }
+  var parens = {
+    '(': ')',
+    '{': '}',
+    '[': ']'
   }
+
+  if 
 };
 
 

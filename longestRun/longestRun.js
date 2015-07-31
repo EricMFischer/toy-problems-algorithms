@@ -13,7 +13,34 @@
  */
 
 var longestRun = function (string) {
-  // TODO: Your code here!
+  var longestStreaks = [];
+  var count = 1; // count starts at 1 to account for first letter of streak
+  var highestStreak = 0;
+  var theLetter = '';
+
+  for (var i=0; i<string.length; i++) {
+    var letter = string[i];
+    var nextLetter = string[i+1];
+    if (letter === nextLetter) {
+      count++;
+      longestStreaks.push(letter); // longestStreaks will then have 'a,a' for a streak of 'a,a,a' for example
+    } else {
+      if (count > highestStreak) {highestStreak = count; theLetter += letter}
+      count = 0;
+    }
+  }
+  var indices = [];
+  for (var i=0; i<string.length; i++) {
+    var focusLetter = theLetter[theLetter.length - 1];
+    if (string[i] === focusLetter) {
+      if (string[i] === string[i + highestStreak - 1]) {
+        indices.push(string.indexOf(string[i]));
+        indices.push(string.indexOf(string[i + highestStreak - 1]));
+      }
+    }
+  }
+
+  return indices;
 };
 
 // If you need a random string generator, use this!
@@ -28,3 +55,8 @@ var randomString = function (len) {
 
   return text;
 };
+
+var str = randomString(20);
+console.log(str);
+var run = longestRun(str);
+console.log(run);

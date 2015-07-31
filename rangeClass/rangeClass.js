@@ -40,10 +40,14 @@
 
 
 var Range = function(start, end, step) {
+  if (start === undefined) {return null;}
+  if (end === undefined) {this.end = this.start;} // !end will not work, because it'll be true if end is 0
 
-  if (!end) {return start;}
-  return reduce
+  if (step === undefined) {this.step = (this.end > this.start) ? 1 : -1;}
 
+  this.size = function() {
+    return Math.floor((this.end - this.start) / this.step) + 1;
+  }
 
 
   // if (start < end) {
