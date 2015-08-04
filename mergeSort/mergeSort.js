@@ -95,32 +95,53 @@
  *
  */
 
-
-
 var mergeSort = function(array) {
-  // Create a number of one-item lists
-  var items = array.length;
-  var arrayOfArrays = [];
-  array.forEach(function(item) {
-    arrayOfArrays.push([item]);
-  });
-  console.log(arrayOfArrays);
+  if (array.length <= 1) {return array;}
+  var half = Math.floor(array.length/2);
+  var left = array.slice(0, half);
+  var right = array.slice(half);
+  return merge(mergeSort(left), mergeSort(right)); // splitting is recursive process
+}
+
+var merge = function(left, right) {
+  var i=0;
+  var j=0;
   var result = [];
-  var merge = function(arrayOfArrays) {
-    for (var i=0; i<arrayOfArrays.length; i+2) {
-      var left = arrayOfArrays[i][0];
-      var right = arrayOfArrays[i+1][0];
-      if (!right) {result.push(left);}
-      if (left < right) {
-        result.push([left, right]);
-      } else {
-        result.push([right, left]);
-      }
+  while (i < left.length && j < right.length) {
+    if (left[i] < right[i]) {
+      result.push(left[i++]);
+    } else {
+      result.push(right[i++]);
     }
   }
-  merge(arrayOfArrays);
+  var remaining = i === left.length ? right.slice(j) : left.slice(i);
+  return result.concat(remaining);
+}
 
-  console.log(result);
-};
+// var mergeSort = function(array) {
+//   // Create a number of one-item lists
+//   var items = array.length;
+//   var arrayOfArrays = [];
+//   array.forEach(function(item) {
+//     arrayOfArrays.push([item]);
+//   });
+//   console.log(arrayOfArrays);
+//   var result = [];
+//   var merge = function(arrayOfArrays) {
+//     for (var i=0; i<arrayOfArrays.length; i+2) {
+//       var left = arrayOfArrays[i][0];
+//       var right = arrayOfArrays[i+1][0];
+//       if (!right) {result.push(left);}
+//       if (left < right) {
+//         result.push([left, right]);
+//       } else {
+//         result.push([right, left]);
+//       }
+//     }
+//   }
+//   merge(arrayOfArrays);
+
+//   console.log(result);
+// };
 
 console.log(mergeSort([1,3,4,2]));
