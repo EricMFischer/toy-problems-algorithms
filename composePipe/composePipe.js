@@ -34,21 +34,62 @@
 
 'use strict';
 
+
+var greet = function(name){ return 'hi: ' + name;}
+var exclaim = function(statement) { return statement.toUpperCase() + '!';}
+var welcome = compose(greet, exclaim);
+console.log(welcome('phillip')); // 'hi: PHILLIP!'
+
 var compose = function() {
   var args = arguments;
-  var argsLength = arguments.length;
+  var length = args.length;
   return function(x) {
-    for (var i=argsLength-1; i>=0; i--) {
+    for (var i=length-1; i>=0; i--) {
       x = args[i](x);
     }
     return x;
   }
 }
 
-var greet = function(name){ return 'hi: ' + name;}
-var exclaim = function(statement) { return statement.toUpperCase() + '!';}
-var welcome = compose(greet, exclaim);
-console.log(welcome('phillip')); // 'hi: PHILLIP!'
+// var compose = function() {
+//   var args = arguments;
+//   var argsLength = arguments.length;
+//   return function(x) {
+//     for (var i=argsLength-1; i>=0; i--) {
+//       x = args[i](x);
+//     }
+//     return x;
+//   }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

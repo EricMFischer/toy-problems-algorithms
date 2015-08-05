@@ -43,7 +43,33 @@
  *  - Make your function accept a parameter for the direction of rotation (1 = clockwise, -1 = counterclockwise)
  */
 
-var rotateMatrix = function(matrix
-) {
-  // Your code here.
+var rotateMatrix = function(matrix, direction) {
+  var matrixLength = matrix.length;
+  var result = [];
+  for (var i=0; i<matrixLength; i++) {
+    result.push([]);
+  }
+  // iterate through the number of items in each array
+  for (var i=0; i<matrixLength; i++) {
+    var row = matrix[i];
+    for (var i=0; i<row.length; i++) {
+      // unshift those to the beginning of new arrays (equal to the # of arrays initially given)
+      var character = row[i];
+      console.log(character);
+      for (var i=0; i<result.length; i++) {
+        var array = result[i];
+        debugger;
+        array.unshift(character);
+      }
+    }
+  }
+  return result;
 };
+
+var matrix = [
+[1,2,3,4],
+[5,6,7,8],
+[9,'A','B','C'],
+['D','E','F','G'] ];
+
+console.log(rotateMatrix(matrix));
