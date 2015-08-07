@@ -41,68 +41,28 @@ var welcome = compose(greet, exclaim);
 console.log(welcome('phillip')); // 'hi: PHILLIP!'
 
 var compose = function() {
-  var args = arguments;
-  var length = args.length;
   return function(x) {
-    for (var i=length-1; i>=0; i--) {
+    for (var i=arguments.length-1; i>=0; i--) {
       x = args[i](x);
     }
     return x;
   }
 }
 
-// var compose = function() {
+
+
+
+
+// var pipe = function() {
 //   var args = arguments;
 //   var argsLength = arguments.length;
 //   return function(x) {
-//     for (var i=argsLength-1; i>=0; i--) {
+//     for (var i=0; i<=argsLength-1; i++) {
 //       x = args[i](x);
 //     }
 //     return x;
 //   }
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var pipe = function() {
-  var args = arguments;
-  var argsLength = arguments.length;
-  return function(x) {
-    for (var i=0; i<=argsLength-1; i++) {
-      x = args[i](x);
-    }
-    return x;
-  }
-}
 
 var add2 = function(number){ return number + 2; }
 var multiplyBy3 = function(number){ return number * 3; }

@@ -46,21 +46,23 @@
 var rotateMatrix = function(matrix, direction) {
   var matrixLength = matrix.length;
   var result = [];
-  for (var i=0; i<matrixLength; i++) {
-    result.push([]);
-  }
-  // iterate through the number of items in each array
+
+  for 
+  
   for (var i=0; i<matrixLength; i++) {
     var row = matrix[i];
-    for (var i=0; i<row.length; i++) {
+    result.push([]);
+
+    for (var j=0; j<row.length; j++) {
       // unshift those to the beginning of new arrays (equal to the # of arrays initially given)
-      var character = row[i];
-      console.log(character);
-      for (var i=0; i<result.length; i++) {
-        var array = result[i];
-        debugger;
-        array.unshift(character);
-      }
+      var character = row[j];
+      var array = result[j];
+
+
+      // for (var k=0; k<result.length; k++) {
+      //   var array = result[i];
+      //   array.unshift(character);
+      // }
     }
   }
   return result;
