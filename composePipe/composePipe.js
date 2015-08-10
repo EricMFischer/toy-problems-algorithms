@@ -11,10 +11,10 @@
  * You can view compose as moving right to left through its arguments.
  *
  * Compose Example:
- *   var greet = function(name){ return 'hi: ' + name;}
- *   var exclaim = function(statement) { return statement.toUpperCase() + '!';}
- *   var welcome = compose(greet, exclaim);
- *   welcome('phillip'); // 'hi: PHILLIP!'
+  *   var greet = function(name){ return 'hi: ' + name;}
+  *   var exclaim = function(statement) { return statement.toUpperCase() + '!';}
+  *   var welcome = compose(greet, exclaim);
+  *   welcome('phillip'); // 'hi: PHILLIP!'
  *
 
  * Step 2: Implement the function Pipe:
@@ -35,34 +35,32 @@
 'use strict';
 
 
-var greet = function(name){ return 'hi: ' + name;}
-var exclaim = function(statement) { return statement.toUpperCase() + '!';}
-var welcome = compose(greet, exclaim);
-console.log(welcome('phillip')); // 'hi: PHILLIP!'
-
 var compose = function() {
+  var args = arguments;
   return function(x) {
-    for (var i=arguments.length-1; i>=0; i--) {
+    for (var i=args.length-1; i>=0; i--) {
       x = args[i](x);
     }
     return x;
   }
 }
 
+var greet = function(name){ return 'hi: ' + name;}
+var exclaim = function(statement) { return statement.toUpperCase() + '!';}
+var welcome = compose(greet, exclaim);
+console.log(welcome('phillip')); // 'hi: PHILLIP!'
 
 
 
-
-// var pipe = function() {
-//   var args = arguments;
-//   var argsLength = arguments.length;
-//   return function(x) {
-//     for (var i=0; i<=argsLength-1; i++) {
-//       x = args[i](x);
-//     }
-//     return x;
-//   }
-// }
+var pipe = function() {
+  var args =arguments;
+  return function(x) {
+    for (var i=0; i<args.length; i++) {
+      x = args[i](x);
+    }
+    return x;
+  }
+}
 
 var add2 = function(number){ return number + 2; }
 var multiplyBy3 = function(number){ return number * 3; }

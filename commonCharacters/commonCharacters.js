@@ -19,7 +19,6 @@ var commonCharacters = function(str1, str2) {
     if (str2obj[key] === true) {
       string += key;
     }
-
   }
   return string;
 }

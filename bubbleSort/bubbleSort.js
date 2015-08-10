@@ -37,10 +37,9 @@
 
 var bubbleSort = function(array) {
   var sorted = false;
-  var length = array.length;
   while (!sorted) {
-    sorted = true;
-    for (var i=0; i<length; i++) {
+    sorted = true; // has to be here because: within the for loop, 'sorted' could get erroneously set to true just because the last 2 elements are in order
+    for (var i=0; i<array.length; i++) {
       if (array[i] > array[i+1]) {
         sorted = false;
         var temp = array[i];

@@ -35,31 +35,26 @@ var Tree = function(value){
   this.children = [];
 };
 
+// Breadth-first search: uses a queue. Don't use this method for a massive tree
 Tree.prototype.BFSelect = function(filter) {
   // return an array of values for which the function filter(value, depth) returns true
+  // this.value & this.depth
   var results = [];
-
+ 
   var BFsearch = function(node, depth) {
     if (filter(node.value, depth)) {
       results.push(node.value);
     }
     for (var i=0; i<node.children.length; i++) {
-      var child = node.children[i];
-      debugger;
-      if (filter(child.value, depth)) {
-        results.push(child.value);
-      }
+      if (filter(node.value, depth)) {results.push(node.value);}
     }
-    BFsearch(child, depth+1);
+    BFSearch( , depth + 1);
   }
-  BFsearch(this, 0);
+  BFsearch(this, 1);
+
 
   return results;
 };
-
-/**
- * You shouldn't need to change anything below here, but feel free to look.
-  */
 
 /**
   * add an immediate child
@@ -122,3 +117,18 @@ var leaf7 = branch3.addChild(7);
 console.log(root1.BFSelect(function (value, depth) {
   return value % 2;
 }));
+
+// var BFsearch = function(node, depth) {
+//   if (filter(node.value, depth)) {
+//     results.push(node.value);
+//   }
+//   for (var i=0; i<node.children.length; i++) {
+//     var child = node.children[i];
+//     debugger;
+//     if (filter(child.value, depth)) {
+//       results.push(child.value);
+//     }
+//   }
+//   BFsearch(child, depth+1);
+// }
+// BFsearch(this, 0);

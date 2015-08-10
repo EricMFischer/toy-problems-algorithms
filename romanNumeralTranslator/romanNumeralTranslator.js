@@ -27,6 +27,27 @@ var DIGIT_VALUES = {
 };
 
 var translateRomanNumeral = function(romanNumeral){
+  var result = 0;
+
+  for (var i=0; i<romanNumeral.length; i++) {
+    var symbolVal = DIGIT_VALUES[romanNumeral[i]];
+    var nextSymbolVal = DIGIT_VALUES[romanNumeral[i+1]];
+
+    if (symbolVal === undefined) {
+      return null;
+    } else if (i === romanNumeral.length - 1) {
+      result += symbolVal;
+      return result;
+    } else if (symbolVal < nextSymbolVal) {
+      result -= symbolVal;
+    } else {
+      result += symbolVal;
+    }
+  }
+};
+
+
+console.log(translateRomanNumeral('IV'));
 
   // var itsInvalid = function(romanNumeral) {
   //   var result = false;
@@ -38,41 +59,33 @@ var translateRomanNumeral = function(romanNumeral){
   //   }
   //   return result;
   // }
-  // if (itsInvalid) {return null;}
+  // if (itsInvalid(romanNumeral)) {return null;}
 
-  var additionOperation = function(romanNumeral) {
-    var result = true;
-    for (var i=0; i<romanNumeral.length; i++) {
-      var symbol = romanNumeral[i];
-      var nextSymbol = romanNumeral[i+1];
-      if (DIGIT_VALUES[symbol] < DIGIT_VALUES[nextSymbol]) {
-        result = false;
-      }
-    } 
-    return result;
-  }
+  // var additionOperation = function(romanNumeral) {
+  //   var result = true;
+  //   for (var i=0; i<romanNumeral.length; i++) {
+      
+  //     if (DIGIT_VALUES[symbol] < DIGIT_VALUES[nextSymbol]) {
+  //       result = false;
+  //     }
+  //   } 
+  //   return result;
+  // }
 
-  var itsAddition = additionOperation(romanNumeral);
-  var answer = 0;
-  if (itsAddition) {
-    for (var i=0; i<romanNumeral.length; i++) {
-      var symbol = romanNumeral[i];
-      answer += DIGIT_VALUES[symbol];
-    }
-  } else { // if it's a subtractive operation
-    var lastSymbol = romanNumeral[romanNumeral.length-1];
-    answer += DIGIT_VALUES[lastSymbol];
-    for (var i=romanNumeral.length-2; i>=0; i--) {
-      var symbol = romanNumeral[i];
-      answer -= DIGIT_VALUES[symbol];
-    }
-  }
+  // var itIsAddition = additionOperation(romanNumeral);
+  // var answer = 0;
+  // if (itIsAddition) {
+  //   for (var i=0; i<romanNumeral.length; i++) {
+  //     var symbol = romanNumeral[i];
+  //     answer += DIGIT_VALUES[symbol];
+  //   }
+  // } else { // if it's a subtractive operation
+  //   var lastSymbol = romanNumeral[romanNumeral.length-1];
+  //   answer += DIGIT_VALUES[lastSymbol];
+  //   for (var i=romanNumeral.length-2; i>=0; i--) {
+  //     var symbol = romanNumeral[i];
+  //     answer -= DIGIT_VALUES[symbol];
+  //   }
+  // }
 
-  return answer;
-};
-
-
-console.log(translateRomanNumeral('IV'));
-
-
-
+  // return answer;

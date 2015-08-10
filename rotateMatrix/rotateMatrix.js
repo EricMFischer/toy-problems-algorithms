@@ -44,29 +44,17 @@
  */
 
 var rotateMatrix = function(matrix, direction) {
-  var matrixLength = matrix.length;
-  var result = [];
-
-  for 
-  
-  for (var i=0; i<matrixLength; i++) {
-    var row = matrix[i];
-    result.push([]);
-
-    for (var j=0; j<row.length; j++) {
-      // unshift those to the beginning of new arrays (equal to the # of arrays initially given)
-      var character = row[j];
-      var array = result[j];
-
-
-      // for (var k=0; k<result.length; k++) {
-      //   var array = result[i];
-      //   array.unshift(character);
-      // }
+  var answer = [];
+  while (matrix[0].length>0) {
+    var result = [];
+    for (var i=matrix.length-1; i>=0; i--) {
+      var row = matrix[i];
+      result.push(row.shift());
     }
+    answer.push(result);
   }
-  return result;
-};
+  return answer;
+}
 
 var matrix = [
 [1,2,3,4],
