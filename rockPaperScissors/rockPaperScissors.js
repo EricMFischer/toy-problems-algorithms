@@ -20,27 +20,27 @@ When recurse runs for the first time, we can treat line 30 as a "master for loop
 Rounds is what determines how many levels we go down through recursion.
 */
 
-var rockPaperScissors = function(n) {
-  var rounds = n || 3;
-  var combinations = [];
-  var choices = ['rock', 'paper', 'scissors'];
+var rockPaperScissors = function(num) {
+  var rounds = num || 3;
+  var combos = [];
   var game = [];
+  var choices = ['rock', 'paper', 'scissors'];
 
-  var subroutine = function(rounds) {
+  var recurse = function(rounds) {
     if (rounds === 0) {
-      combinations.push(game.slice());
+      combos.push(game.slice());
       return;
     } else {
-      for (var i = 0; i < 3; i++) {
+      for (var i=0; i<choices.length; i++) {
         game.push(choices[i]);
-        subroutine(rounds-1);
+        recurse(rounds - 1);
         game.pop();
       }
     }
   }
-  subroutine(rounds);
+  recurse(num);
 
-  return combinations;
+  return combos;
 }
 
 console.log(rockPaperScissors(3));

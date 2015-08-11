@@ -10,24 +10,40 @@
  * Extra credit: Extend your function to handle more than two input strings.
  */
 
-
-var commonCharacters = function(str1, str2) {
+var commonChar = function(str1, str2) {
+  var result = '';
   var str1obj = objectify(str1);
   var str2obj = objectify(str2);
-  var string = '';
-  for (var key in str1obj) {
-    if (str2obj[key] === true) {
-      string += key;
+  for (var i=0; i<str1.length; i++) {
+    var char = str1[i];
+    if (str1obj[char] && str2obj[char] && result.indexOf(char) === -1) {
+      result += char
     }
   }
-  return string;
+  return result;
 }
 
-var objectify = function(string) {
-  return string.split('').reduce(function(obj, chara) {
-    if (chara.match(/[a-z]/i)) {obj[chara] = true;}
-    return obj;
+
+var objectify = function (string) {
+  return string.split('').reduce(function(prev, char) {
+    if (char.match(/[a-z]/i)) {prev[char] = true;}
+    return prev;
   }, {});
 }
 
-console.log(commonCharacters('acexivou', 'aegihobu'));
+// console.log(objectify('strings'));
+
+console.log(commonChar('acexuviu', 'aeghibu'));
+
+
+// var commonCharacters = function(str1, str2) {
+//   var str1obj = objectify(str1);
+//   var str2obj = objectify(str2);
+//   var string = '';
+//   for (var key in str1obj) {
+//     if (str2obj[key] === true) {
+//       string += key;
+//     }
+//   }
+//   return string;
+// }
