@@ -94,29 +94,123 @@
  *   Implement natural splitting into your mergesort. How much does it improve your average-case runtime?
  *
  */
+ // RECURSIVE APPROACH:
+ // *   1. Split the input array in half
+ // *   [4, 7, 4, 3, 9, 1, 2] -> [4, 7, 4], [3, 9, 1, 2]
+ // *
+ // *   2. Both sides are sorted recursively:
+ // *   [4, 7, 4] -> [4, 4, 7]
+ // *   [3, 9, 1, 2] -> [1, 2, 3, 9]
+ // *
+ // *   3. Both halves are merged:
+ // *   [4, 7, 4], [3, 9, 1, 2] -> [1, 2, 3, 4, 4, 7, 9
+
+ // *   1. Split the input array in half
+ // *   [7, 4] -> [7], [4]
+ // *
+ // *   2. Both sides are sorted recursively:
+ // *   [7] -> [7]
+ // *   [4] -> [4]
+ // *
+ // *   3. Both halves are merged:
+ // *   [7], [4] -> [4, 7]
+
+
+ // ITERATIVE APPROACH:
+ // *   Merge step: Adjacent sublists are merged into sorted sublists
+ // *   [[4],[7],[4],[3],[9],[1],[2]] -> [[4,7],[3,4],[1,9],[2]]
+ // *
+ // *   Repeat merge step:
+ // *   [[4,7],[3,4],[1,9],[2]] -> [[3,4,4,7], [1,2,9]]
 
 var mergeSort = function(array) {
-  if (array.length <= 1) {return array;}
-  var half = Math.floor(array.length/2);
-  var left = array.slice(0, half);
-  var right = array.slice(half);
-  return merge(mergeSort(left), mergeSort(right)); // splitting is recursive process
+
+  var singles = [];
+  var makeSingles = function(array) {
+    array.forEach(function(item) {
+      singles.push([item]);
+    });
+  }
+  makeSingles(array);
+
+
+  var sortArrays = function(arr) {
+    var count = -1;
+    if (arr.length === 1) {return arr[0];}
+    var result = [];
+
+    for (var i=0; i<arr.length; i+=2) {
+      result.push([]); // pushing in one future result array for every 2 compared
+      count++;
+      var left = arr[i];
+      var right = arr[i+1];
+      if (!right) {
+        result[Math.floor(arr.length/2)].push([]);
+        result[Math.floor(arr.length/2)].push(left);
+        right = [];
+      }
+
+      while (left.length || right.length) {
+        if (left[0] === undefined) {
+          result[count].push(right[0]);
+          right.shift();
+        } else if (right[0] === undefined) {
+          result[count].push(left[0]);
+          left.shift();
+        } else if (left[0] > right[0]) {
+          result[count].push(right[0]);
+          right.shift();
+        } else if (left[0] < right[0]) {
+          result[count].push(left[0]);
+          left.shift();
+        }
+      }
+    }
+    return sortArrays(result);
+  }
+  
+  return sortArrays(singles);
 }
 
-var merge = function(left, right) {
-  var i=0;
-  var j=0;
-  var result = [];
-  while (i < left.length && j < right.length) {
-    if (left[i] < right[i]) {
-      result.push(left[i++]);
-    } else {
-      result.push(right[i++]);
-    }
-  }
-  var remaining = i === left.length ? right.slice(j) : left.slice(i);
-  return result.concat(remaining);
-}
+// var mergeSort = function(array) {
+
+//   for (var i=0; i<array.length; i++) {
+//     var subarr = array[i];
+//   }
+//   // Split input array in half
+//   var start = 0;
+//   var end = array.length-1;
+//   var midIndex = start + Math.floor((end-start) / 2);
+//   console.log(midIndex);
+
+//   var array1 = array.slice(start, midIndex+1);
+//   var array2 = array.slice(midIndex+1, end+1);
+
+//   return [array1, array2];
+// };
+
+// var mergeSort = function(array) {
+//   if (array.length <= 1) {return array;}
+//   var half = Math.floor(array.length/2);
+//   var left = array.slice(0, half);
+//   var right = array.slice(half);
+//   return merge(mergeSort(left), mergeSort(right)); // splitting is recursive process
+// }
+
+// var merge = function(left, right) {
+//   var i=0;
+//   var j=0;
+//   var result = [];
+//   while (i < left.length && j < right.length) {
+//     if (left[i] < right[i]) {
+//       result.push(left[i++]);
+//     } else {
+//       result.push(right[i++]);
+//     }
+//   }
+//   var remaining = i === left.length ? right.slice(j) : left.slice(i);
+//   return result.concat(remaining);
+// }
 
 // var mergeSort = function(array) {
 //   // Create a number of one-item lists
@@ -145,3 +239,4 @@ var merge = function(left, right) {
 // };
 
 console.log(mergeSort([1,3,4,2]));
+console.log(mergeSort([4, 7, 4, 3, 9, 1, 2]));

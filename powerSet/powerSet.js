@@ -17,32 +17,66 @@
  * -> ["", "j", "ju", "jm", "jp", "jmu", "jmp", "jpu", "jmpu", "u", "m", "p", "mu", "mp", "pu", "mpu"]
  */
 
+ var powerSet = function(str) {
+  var result = [''];
+  for (var i=0; i<str.length; i++) {
+    result.push(str[i]);
+  }
+  
+  var branch = [];
 
-var powerSet = function(str){
-  str = str || ''; // take care of edge case
-  var charArray = str.split('');
-  var charLength = charArray.length;
-  var letters = {}; // tracks all unique values
-  var results = [''];
-
-  for (var i=0; i<charLength; i++) {
-    letters[i] = charArray[i];
+  for (var i=1; i<result.length; i++) {
+    branch.push(result[i]);
+    sub(result.slice(1));
+    result.pop();
   }
 
-  var subroutine = function(charArray, lengthOfOutput) {
-    for (var i=0; i<charArray.length; i++) {
-      var initialBranch = charArray[i];
-      oneResult.push(initialBranch);
-      subroutine(charArray, lengthOfOutput + 1);
-      oneResult.pop();
-    }
-  }
-  subroutine(charArray, 0);
+  // var branch = [];
+  // var sub = function(result) {
+  //   if (result.length === 0) {result.push(branch.splice(0)); return;}
+  //   else {
+  //     for (var i=1; i<result.length; i++) {
+  //       debugger;
+  //       branch.push(result[i]);
+  //       if (result.indexOf(branch) === -1) {result.push(branch);}
+  //       sub(result.slice(1));
+  //       result.pop();
+  //     }
+  //   }
+  // }
+  // sub(result);
 
-  // sort my results
-  // eliminate duplicates
-  return results;
-}
+
+  return result;
+ }
+
+
+// var powerSet = function(str){
+//   str = str || ''; // take care of edge case
+//   var charArray = str.split('');
+//   var charLength = charArray.length;
+//   var letters = {}; // tracks all unique values
+//   var results = [''];
+
+//   for (var i=0; i<charLength; i++) {
+//     letters[i] = charArray[i];
+//   }
+
+//   var subroutine = function(charArray, lengthOfOutput) {
+//     var oneResult = [];
+//     for (var i=0; i<charArray.length; i++) {
+//       var initialBranch = charArray[i];
+//       oneResult.push(initialBranch);
+//       subroutine(charArray, lengthOfOutput + 1);
+//       oneResult.pop();
+//     }
+//   }
+//   subroutine(charArray, 0);
+
+//   // sort my results
+//   // eliminate duplicates
+//   return results;
+// }
 
 console.log(powerSet('abc'));
 

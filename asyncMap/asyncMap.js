@@ -38,6 +38,60 @@
  *
  */
 
+var asyncMap = function(tasks, callback) {
+  var results = [];
+  var count = 0;
+  for (var i=0; i<tasks.length; i++) {
+    (function(i) {
+      tasks[i](function(value) {
+        results[i] = value;
+        count++;
+        if (count === tasks.length) {
+          return callback(results);
+        }
+      });
+    })(i);
+  }
+}
+
+
+var answer = asyncMap([
+  function(cb){
+    setTimeout(function(){
+      cb('one');
+    }, 200);
+  },
+  function(cb){
+    setTimeout(function(){
+      cb('two');
+    }, 100);
+  }
+ ],
+  function(results){
+    // the results array will equal ['one','two'] even though
+    // the second function had a shorter timeout.
+    console.log(results); // ['one', 'two']
+ });
+
+console.log(answer);
 
 var asyncMap = function(tasks, callback){
+  var resultsArray = [];
+  var resultsCount = 0;
+
+  // for the functions in tasks array
+  for(var i = 0; i < tasks.length; i++){
+    // invoke this for each function
+    (function (i) {
+      // define the cb
+      tasks[i](function (val) {
+        console.log(val); // logs two and then one because the cb is called quicker on 2
+        resultsArray[i] = val; // ensures proper array placement in results
+        resultsCount++;
+        if(resultsCount === tasks.length){
+          callback(resultsArray);
+        }
+      });
+    })(i);
+  }
 };

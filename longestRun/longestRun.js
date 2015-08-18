@@ -12,51 +12,45 @@
  * inputs well.
  */
 
-var longestRun = function (string) {
-  var longestStreaks = [];
-  var count = 1; // count starts at 1 to account for first letter of streak
-  var highestStreak = 0;
-  var theLetter = '';
+// How do I refresh the streak array so it's new after the current streak ends?
+var longestRun = function(str) {
+  var indices = [0,0];
 
-  for (var i=0; i<string.length; i++) {
-    var letter = string[i];
-    var nextLetter = string[i+1];
-    if (letter === nextLetter) {
-      count++;
-      longestStreaks.push(letter); // longestStreaks will then have 'a,a' for a streak of 'a,a,a' for example
-    } else {
-      if (count > highestStreak) {highestStreak = count; theLetter += letter}
-      count = 0;
-    }
-  }
-  var indices = [];
-  for (var i=0; i<string.length; i++) {
-    var focusLetter = theLetter[theLetter.length - 1];
-    if (string[i] === focusLetter) {
-      if (string[i] === string[i + highestStreak - 1]) {
-        indices.push(string.indexOf(string[i]));
-        indices.push(string.indexOf(string[i + highestStreak - 1]));
+  var streakFinder = function(str) {
+    var streak = [];
+    for (var idx=0; idx<str.length; idx++) {
+      if (str[idx] === str[idx+1]) {
+        streak.push(idx, idx+1);
+      }
+      var start = streak[0];
+      var end = streak[streak.length-1];
+      if (end - start > indices[1] - indices[0]) {
+        indices[0] = start;
+        indices[1] = end;
+        streak = [streak[0]]; // so that the start value is preserved
+      } else {
+        streak = [];
       }
     }
   }
+  streakFinder(str);
 
   return indices;
-};
+}
+
 
 // If you need a random string generator, use this!
 // (you wont need this function for your solution but it may help with testing)
 var randomString = function (len) {
   var text = "";
   var possible = "abcdefghijklmnopqrstuvwxyz";
-
   for(var i = 0; i < len; i++) {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
-
   return text;
 };
 
-var str = randomString(20);
+var str = randomString(40);
 console.log(str);
 var run = longestRun(str);
 console.log(run);

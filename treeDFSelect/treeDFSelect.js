@@ -35,19 +35,37 @@ var Tree = function(value){
 
 // Breadth-first search: uses a queue. Don't use this method for a massive tree
 // Depth-first search: doesn't have to keep track (w/ a queue) of all nodes
+
 Tree.prototype.DFSelect = function(filter) {
-  var results = [];
+  var result = [];
+
   var DFSearch = function(node, depth) {
     if (filter(node.value, depth)) {
-      results.push(node.value);
+      result.push(node.value);
     }
-    node.children.forEach(function(child) {
+    for (var i=0; i<node.children.length; i++) {
+      var child = node.children[i];
       DFSearch(child, depth + 1);
-    });
+    }
   }
   DFSearch(this, 0);
-  return results;
+
+  return result;
 }
+
+// Tree.prototype.DFSelect = function(filter) {
+//   var results = [];
+//   var DFSearch = function(node, depth) {
+//     if (filter(node.value, depth)) {
+//       results.push(node.value);
+//     }
+//     node.children.forEach(function(child) {
+//       DFSearch(child, depth + 1);
+//     });
+//   }
+//   DFSearch(this, 0);
+//   return results;
+// }
 
 //Solution without a subroutine, because I'm becoming a badass
 // Tree.prototype.DFSelect = function(filter, depth, results) {

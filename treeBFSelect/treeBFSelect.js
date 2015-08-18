@@ -37,24 +37,24 @@ var Tree = function(value){
 
 // Breadth-first search: uses a queue. Don't use this method for a massive tree
 Tree.prototype.BFSelect = function(filter) {
-  // return an array of values for which the function filter(value, depth) returns true
-  // this.value & this.depth
-  var results = [];
- 
-  var BFsearch = function(node, depth) {
-    if (filter(node.value, depth)) {
-      results.push(node.value);
+  var result = [];
+  var BFSearch = function(node, depth) {
+    // if (filter(node.value, depth)) {
+    //   result.push(node.value);
+    // }
+    for (var i=0; i<node.children.length; i++) {
+      if (filter(node.value, depth)) {
+        result.push(node.value);
+      }
     }
     for (var i=0; i<node.children.length; i++) {
-      if (filter(node.value, depth)) {results.push(node.value);}
+      BFSearch(node.chilren[i].children);
     }
-    BFSearch( , depth + 1);
   }
-  BFsearch(this, 1);
+  BFSearch(this, 0);
 
-
-  return results;
-};
+  return result;
+}
 
 /**
   * add an immediate child

@@ -9,20 +9,19 @@
  */
 
 var binarySearch = function(array, element) {
-  var sub = function(start, end) {
-    if (start === end) {return 0;}
-    // + start is the key: that's how you keep track of the correct index split after split
-    var midIndex = start + Math.floor((end - start) / 2);
+  var binary = function(start, end) {
+    if (start === end) {return 0;} // if array is empty
+    var midIndex = start + Math.floor((end - start) / 2); // need to add start to keep midIndex intact
 
     if (element === array[midIndex]) {
       return midIndex;
+    } else if (element > array[midIndex]) {
+      return binary(midIndex, end);
     } else if (element < array[midIndex]) {
-      return sub(start, midIndex);
-    } else {
-      return sub(midIndex, end);
+      return binary(start, midIndex);
     }
   }
-  return sub(0, array.length);
+  return binary(0, array.length);
 }
 
 
