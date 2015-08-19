@@ -11,7 +11,7 @@ var makeHashTable = function(){
     var index = getIndexBelowMaxForKey(key, storageLimit);
 
     var bucket = storage[index]; // retrieve bucket at a particular index
-    if (!bucket) {
+    if (!bucket) { //1st edge case--if bucket doesn't even exist
       bucket = [];
       storage[index] = bucket;
     }
