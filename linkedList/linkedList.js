@@ -27,7 +27,7 @@ var LinkedList = function(){
 LinkedList.prototype.addToTail = function(value) {
   var newTail = this.makeNode(value);
 
-  if (!this.head) {
+  if (!this.head) { // 1st case: if there's no head, set the head to this node too
     this.head = newTail;
   }
   if (this.tail) {
