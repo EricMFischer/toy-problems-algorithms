@@ -78,8 +78,17 @@ BinaryHeap.prototype.getRoot = function () {
   return this._heap[0];
 }
 
+ // * parentIndex = Math.floor( (index - 1) / 2 )
+ // * childrenIndices = [index * 2 + 1, index * 2 + 2]
+// whenever we insert into
+//  * a binary min heap, we must compare the inserted node to its parent, and swap their positions
+//  * if it is less than its parent. After a swap it must compare itself to its new parent, continuing
+//  * until it is no longer less than its parent.
 BinaryHeap.prototype.insert = function (value) {
-  // TODO: Your code here
+  var currIndex = this._heap.length - 1;
+  var parentIndex = Math.floor((currIndex - 1) / 2);
+  var parentValue = this._heap[Math.floor((currIndex - 1) / 2)];
+  if (value < parentValue) 
 }
 
 BinaryHeap.prototype.removeRoot = function () {
