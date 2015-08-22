@@ -66,16 +66,22 @@
 // Extra extra credit: Implement `heapSort`. `heapSort` takes an array, constructs it into a `BinaryHeap`
 // and then iteratively returns the root of the `BinaryHeap` until its empty, thus returning a sorted array.
 
-
+// Heaps are complete trees--a node must have its children filled before the next node can have children
+// Constant time?
+// Dijkstra's Algorithm
 function BinaryHeap () {
   this._heap = [];
   // this compare function will result in a minHeap, use it to make comparisons between nodes in your solution
-  this._compare = function (i, j) { return i < j };
+  this._compare = function (i, j) { return i < j }; // returns true if 
 }
 
 // This function works just fine and shouldn't be modified
 BinaryHeap.prototype.getRoot = function () {
   return this._heap[0];
+}
+
+BinaryHeap.prototype.swapNodesAt = function(index, parentIndex) {
+
 }
 
  // * parentIndex = Math.floor( (index - 1) / 2 )
@@ -85,12 +91,40 @@ BinaryHeap.prototype.getRoot = function () {
 //  * if it is less than its parent. After a swap it must compare itself to its new parent, continuing
 //  * until it is no longer less than its parent.
 BinaryHeap.prototype.insert = function (value) {
+  this._heap.push(node);
   var currIndex = this._heap.length - 1;
   var parentIndex = Math.floor((currIndex - 1) / 2);
-  var parentValue = this._heap[Math.floor((currIndex - 1) / 2)];
-  if (value < parentValue) 
+  // var parentValue = this._heap[Math.floor((currIndex - 1) / 2)];
+  while (index > 0 && (this._compare(this._heap[index], this._heap[parentIndex]))) {
+    swapNodesAt(index, parentIndex);
+    currIndex = parentIndex;
+    parentIndex = Math.floor((index-1) / 2);
+  }
 }
 
 BinaryHeap.prototype.removeRoot = function () {
-  // TODO: Your code here
+  // swap the accessible node (last one in array) with root
+  swapNodesAt(this._heap.length-1, 0, this);
+  // remove last node and store it to be returned later
+  var originalRoot = this._heap.pop();
+  var tempRootIndex = 0;
+  // locate children nodes
+  // then worry about your sorting
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

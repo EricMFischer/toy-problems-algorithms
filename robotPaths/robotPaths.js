@@ -29,5 +29,12 @@ var makeBoard = function(n) {
 };
 
 var robotPaths = function(n, board, i, j) {
-}
+  var start = [1,1],
+  goal = [n,n],
+  pathList = [],
+  solutionList = [],
+  solutionCount = 0,
+  width = 5,
+  height = 5;
 
+}
