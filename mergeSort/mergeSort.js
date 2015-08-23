@@ -135,8 +135,8 @@ var mergeSort = function(array) {
 
 
   var sortArrays = function(arr) {
-    var count = -1;
     if (arr.length === 1) {return arr[0];}
+    var count = -1;
     var result = [];
 
     for (var i=0; i<arr.length; i+=2) {
@@ -144,18 +144,15 @@ var mergeSort = function(array) {
       count++;
       var left = arr[i];
       var right = arr[i+1];
-      if (!right) {
-        result[Math.floor(arr.length/2)].push([]);
-        result[Math.floor(arr.length/2)].push(left);
-        right = [];
-      }
+
+      if (!right) {right = [];}
 
       while (left.length || right.length) {
         if (left[0] === undefined) {
           result[count].push(right[0]);
           right.shift();
-        } else if (right[0] === undefined) {
-          result[count].push(left[0]);
+        } else if (right[0] === undefined) { // set right to empty arr so this will pass
+          result[count].push(left[0]); // if odd number, will just push in left
           left.shift();
         } else if (left[0] > right[0]) {
           result[count].push(right[0]);
@@ -172,71 +169,7 @@ var mergeSort = function(array) {
   return sortArrays(singles);
 }
 
-// var mergeSort = function(array) {
 
-//   for (var i=0; i<array.length; i++) {
-//     var subarr = array[i];
-//   }
-//   // Split input array in half
-//   var start = 0;
-//   var end = array.length-1;
-//   var midIndex = start + Math.floor((end-start) / 2);
-//   console.log(midIndex);
-
-//   var array1 = array.slice(start, midIndex+1);
-//   var array2 = array.slice(midIndex+1, end+1);
-
-//   return [array1, array2];
-// };
-
-// var mergeSort = function(array) {
-//   if (array.length <= 1) {return array;}
-//   var half = Math.floor(array.length/2);
-//   var left = array.slice(0, half);
-//   var right = array.slice(half);
-//   return merge(mergeSort(left), mergeSort(right)); // splitting is recursive process
-// }
-
-// var merge = function(left, right) {
-//   var i=0;
-//   var j=0;
-//   var result = [];
-//   while (i < left.length && j < right.length) {
-//     if (left[i] < right[i]) {
-//       result.push(left[i++]);
-//     } else {
-//       result.push(right[i++]);
-//     }
-//   }
-//   var remaining = i === left.length ? right.slice(j) : left.slice(i);
-//   return result.concat(remaining);
-// }
-
-// var mergeSort = function(array) {
-//   // Create a number of one-item lists
-//   var items = array.length;
-//   var arrayOfArrays = [];
-//   array.forEach(function(item) {
-//     arrayOfArrays.push([item]);
-//   });
-//   console.log(arrayOfArrays);
-//   var result = [];
-//   var merge = function(arrayOfArrays) {
-//     for (var i=0; i<arrayOfArrays.length; i+2) {
-//       var left = arrayOfArrays[i][0];
-//       var right = arrayOfArrays[i+1][0];
-//       if (!right) {result.push(left);}
-//       if (left < right) {
-//         result.push([left, right]);
-//       } else {
-//         result.push([right, left]);
-//       }
-//     }
-//   }
-//   merge(arrayOfArrays);
-
-//   console.log(result);
-// };
 
 console.log(mergeSort([1,3,4,2]));
-console.log(mergeSort([4, 7, 4, 3, 9, 1, 2]));
+console.log(mergeSort([4,7,9,1,2]));
