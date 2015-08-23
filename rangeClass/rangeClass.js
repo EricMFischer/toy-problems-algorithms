@@ -41,57 +41,55 @@
 
 var Range = function(start, end, step) {
   if (start === undefined) {return null;}
-  if (end === undefined) {this.end = this.start;} // !end will not work, because it'll be true if end is 0
+  this.start = start;
+  if (end === undefined) {this.end = this.start;} 
+  else {this.end = end;}
 
-  if (step === undefined) {this.step = (this.end > this.start) ? 1 : -1;}
+  if (step === undefined) {this.step = (this.start < this.end) ? 1 : -1;}
+  else {this.step = step;}
 
-  this.size = function() {
-    return Math.floor((this.end - this.start) / this.step) + 1;
-  }
-
-
-  // if (start < end) {
-  //   while (start <= end) {
-  //     console.log(start);
-  //     start++;
-  //   }
-  // }
-  
-
-  // if (!step) {
-  //   for (var i=start; i<=end; i++) {
-  //     array.push(i);
-  //   } 
-  // } else {
-  //   for (var i=start; i<=end; i+step) {
-  //     array.push(i);
-  //   }
-  // }
-  // return array;
+  return this;
 };
 
 Range.prototype.size = function (start, end) {
-  if (!start) {return null;}
-  if (!end) {return 1;}
-  if (start < end) {return end - start + 1;}
-  if (start > end) {return start - end + 1;}
-  if (start === end) {return 1;}
-  else {return null;}
+  return Math.floor((this.end - this.start) / this.step) + 1;
 };
 
 Range.prototype.each = function (callback) {
-  for (var i=0; i<=this.length; i++) {
-    callback(this[i]);
+  if (this.step > 0) {
+    for (var i=this.start; i<=this.end; i += this.step) {
+      callback(i);
+    }
+  } else {
+    for (var i = this.start; i>= this.end; i += this.step) {
+      callback(i);
+    }
   }
 };
 
+
 Range.prototype.includes = function (val) {
-  for (var i=0; i<this.length; i++) {
-    if (this[i] === value) {return true;}
+  var count = 0;
+  var size = Math.floor((this.end - this.start) / this.step) + 1;
+  while (count < size) {
+    if (this.start === val) {
+      return true;
+    }
+    this.start += this.step;
+    count++;
   }
   return false;
 };
 
-var range = new Range(1, 3);
-console.log(range);
+var evenNumbers = new Range(2,8,2); // A range with the even numbers 2, 4, 6, and 8
+console.log(evenNumbers);
 
+var each = evenNumbers.each(function(val) {
+  console.log(val+"!");
+});
+
+var size = evenNumbers.size(); // should be 4
+console.log(size);
+
+var includes = evenNumbers.includes(2); // should be true
+console.log(includes);
