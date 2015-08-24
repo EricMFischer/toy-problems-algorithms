@@ -37,11 +37,10 @@ var Tree = function(value){
 // Depth-first search: doesn't have to keep track (w/ a queue) of all nodes
 
 Tree.prototype.DFSelect = function(filter) {
-  var result = [];
-
+  var results = [];
   var DFSearch = function(node, depth) {
     if (filter(node.value, depth)) {
-      result.push(node.value);
+      results.push(node.value);
     }
     for (var i=0; i<node.children.length; i++) {
       var child = node.children[i];
@@ -49,23 +48,8 @@ Tree.prototype.DFSelect = function(filter) {
     }
   }
   DFSearch(this, 0);
-
-  return result;
-}
-
-// Tree.prototype.DFSelect = function(filter) {
-//   var results = [];
-//   var DFSearch = function(node, depth) {
-//     if (filter(node.value, depth)) {
-//       results.push(node.value);
-//     }
-//     node.children.forEach(function(child) {
-//       DFSearch(child, depth + 1);
-//     });
-//   }
-//   DFSearch(this, 0);
-//   return results;
-// }
+  return results;
+};
 
 //Solution without a subroutine, because I'm becoming a badass
 // Tree.prototype.DFSelect = function(filter, depth, results) {

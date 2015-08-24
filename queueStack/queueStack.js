@@ -7,13 +7,14 @@
 /**
   * Stack Class
   */
+
 var Stack = function() {
   this._storage = {};
   this._size = 0;
 
   // add an item to the top of the stack
-  this.push = function(item) {
-    this._storage[this._size] = item;
+  this.push = function(value) {
+    this._storage[this._size] = value;
     this._size++;
   };
 
@@ -41,11 +42,12 @@ var Queue = function() {
 
   // called to add an item to the `queue`
   this.enqueue = function(value) {
-    if (inbox.size() === 0 && outbox.size() === 0) {
-      outbox.push(value);
-    } else {
-      inbox.push(value);
-    }
+    inbox.push(value);
+    // if (inbox.size() === 0 && outbox.size() === 0) {
+    //   outbox.push(value);
+    // } else {
+    //   inbox.push(value);
+    // }
   };
 
   // called to remove an item from the `queue`
@@ -63,6 +65,7 @@ var Queue = function() {
     return inbox.size() + outbox.size();
   };
 };
+
 
 var stack = new Stack();
 stack.push(3);

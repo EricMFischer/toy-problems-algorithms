@@ -109,6 +109,12 @@ BinaryHeap.prototype.removeRoot = function () {
   var originalRoot = this._heap.pop();
   var tempRootIndex = 0;
   // locate children nodes
+  var childIndices = [parentIndex * 2 + 1, parentIndex * 2 + 2].filter(function)..
+  var lesserChildIndex = getLesserChildIndex(tempRootIndex, this);
+  // while there are chilren nodes and the lesser of them is less than the new root
+  while (lesserChildIndex && this._compare(this._heap[lesserChildIndex], this._heap[tempRootIndex])) {
+    swapNodesAt(lesserChildIndex, tempRootIndex, this);
+  }
   // then worry about your sorting
 }
 

@@ -38,21 +38,24 @@
  *
  */
 
-var asyncMap = function(tasks, callback) {
+var asyncMap = function(tasks, callback){
   var results = [];
   var count = 0;
-  for (var i=0; i<tasks.length; i++) {
+
+  for (var i = 0; i < tasks.length; i++) {
     (function(i) {
-      tasks[i](function(value) {
-        results[i] = value;
+      // define the cb
+      tasks[i](function (val) {
+        // console.log(val); // logs two then one because the cb is called quicker on 2
+        results[i] = val; // ensures proper array placement in results
         count++;
-        if (count === tasks.length) {
+        if(count === tasks.length){
           return callback(results);
         }
       });
     })(i);
   }
-}
+};
 
 
 var answer = asyncMap([
@@ -74,24 +77,3 @@ var answer = asyncMap([
  });
 
 console.log(answer);
-
-var asyncMap = function(tasks, callback){
-  var resultsArray = [];
-  var resultsCount = 0;
-
-  // for the functions in tasks array
-  for(var i = 0; i < tasks.length; i++){
-    // invoke this for each function
-    (function (i) {
-      // define the cb
-      tasks[i](function (val) {
-        console.log(val); // logs two and then one because the cb is called quicker on 2
-        resultsArray[i] = val; // ensures proper array placement in results
-        resultsCount++;
-        if(resultsCount === tasks.length){
-          callback(resultsArray);
-        }
-      });
-    })(i);
-  }
-};

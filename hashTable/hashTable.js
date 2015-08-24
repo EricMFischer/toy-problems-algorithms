@@ -7,6 +7,7 @@ var makeHashTable = function(){
   var result = {};
   var storage = [];
   var storageLimit = 1000;
+
   result.insert = function(key, value) {
     var index = getIndexBelowMaxForKey(key, storageLimit);
 
@@ -19,11 +20,10 @@ var makeHashTable = function(){
       var tuple = bucket[i];
       if (tuple[0] === key) {
         tuple[1] = value;
-        return;
+        return; // exit early bc we're overwriting
       }
     }
     bucket.push([key, value]);
-
   };
 
   result.retrieve = function(key) {
@@ -39,7 +39,6 @@ var makeHashTable = function(){
       }
     }
     return null;
-
   };
 
   result.remove = function(key) {
@@ -56,7 +55,6 @@ var makeHashTable = function(){
       }
     }
     return null;
-
   };
 
   return result;
