@@ -1,7 +1,7 @@
 /**
  * A prime number is a whole number that has no other divisors other than
- * itself and 1. Write a function that accepts a number and returns true if it's
- * a prime number, false if it's not.
+ * itself and 1. Write a function that accepts a number and returns true 
+ * if it's a prime number, false if it's not.
  */
 
 var primeTester = function(n) {
@@ -9,7 +9,10 @@ var primeTester = function(n) {
     // n isn't a number or n is less than 1 or n is not an integer
     return false;
   }
-  // TODO: return true if n is prime, false otherwise
+  if (n === 2) {return true;}
+  if (n % 2 === 0) {return false;}
+  if (n % 3 === 0) {return false;} // still have to account for 41
+  return true;
 };
 
 /* Extra credit: Write a function that generates a list of all prime numbers
