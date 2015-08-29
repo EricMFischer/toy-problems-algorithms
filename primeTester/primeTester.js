@@ -9,6 +9,7 @@ var primeTester = function(n) {
     // n isn't a number or n is less than 1 or n is not an integer
     return false;
   }
+  if (n === 1) {return false;}
   if (n === 2) {return true;}
   if (n % 2 === 0) {return false;}
   if (n % 3 === 0) {return false;} // still have to account for 41

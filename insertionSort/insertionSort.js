@@ -46,8 +46,23 @@ var testingTransform = function(array) {
   return transform;
 };
 
-var insertionSort = function(array
-) {
-  // Your code goes here. Feel free to add helper functions if needed.
+var insertionSort = function(array) {
+  for (var i=0; i<array.length; i++) {
+    var count = 1;
+    var obj = array[i];
+    var prevObj = array[i-count];
+    while (prevObj && obj.value < prevObj.value) {
+      count++;
+      var temp = prevObj;
+      prevObj = obj;
+      obj = temp;
+    }
+  }
+
   return array;
 };
+
+var arrayOfObjs = testingTransform([5,2,4,4,6]);
+console.log(arrayOfObjs);
+
+console.log(insertionSort(arrayOfObjs));

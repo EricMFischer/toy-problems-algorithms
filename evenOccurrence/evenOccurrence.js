@@ -19,11 +19,11 @@ var evenOccurrence = function(arr) {
   }
   for (var key in obj) {
     if (obj[key] % 2 === 0) {
-      return key;
+      return parseInt(key);
     }
   }
 };
 
 
-var onlyEven = evenOccurrence([1, 7, 2, 4, 5, 6, 8, 9, 6, 4]);
+var onlyEven = evenOccurrence([1, 3, 3, 3, 2, 4, 4, 2, 5]);
 console.log(onlyEven); //  4

@@ -51,13 +51,12 @@ var Queue = function() {
 
 Tree.prototype.BFSelect = function(filter) {
   // return an array of values for which the function filter(value, depth) returns true
-  /* START SOLUTION */
   var queue = new Queue();
   var results = [];
   queue.push({tree: this, depth: 0});
 
   while (item = queue.pop()) {
-    // console.log(item);
+    console.log(item);
     tree = item.tree;
     depth = item.depth;
     if (filter(tree.value, depth)) {
@@ -70,7 +69,6 @@ Tree.prototype.BFSelect = function(filter) {
   }
 
   return results;
-  /* END SOLUTION */
 };
 
 /**
