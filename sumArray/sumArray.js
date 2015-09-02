@@ -11,4 +11,20 @@
 
 // Solved in O(n) time with O(1) memory
 var sumArray = function(array) {
+  var max = array[0];
+  array.reduce(function (sum, current) {
+    sum += current;
+    if (sum > max) max = sum;
+    if (sum >= 0) return sum;
+    else return 0;
+  }, 0);
+  return max;
 };
+
+
+console.log(sumArray([1, 2, 3])); // => 6
+console.log(sumArray([1, 2, 3, -4])); // 6
+console.log(sumArray([1, 2, 3, -4, 5])); // 7
+console.log(sumArray([4, -1, 5])); // => 8
+console.log(sumArray([10, -11, 11])); // 11
+console.log(sumArray([-6, -1, -4])); // -1
