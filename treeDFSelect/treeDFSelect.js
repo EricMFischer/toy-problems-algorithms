@@ -28,16 +28,13 @@
 /*
  * Basic tree that stores a value.
  */
-var Tree = function(value){
-  this.value = value;
-  this.children = [];
-};
 
 // Breadth-first search: uses a queue. Don't use this method for a massive tree
 // Depth-first search: doesn't have to keep track (w/ a queue) of all nodes
 
 Tree.prototype.DFSelect = function(filter) {
   var results = [];
+
   var DFSearch = function(node, depth) {
     if (filter(node.value, depth)) {
       results.push(node.value);
@@ -48,6 +45,7 @@ Tree.prototype.DFSelect = function(filter) {
     }
   }
   DFSearch(this, 0);
+
   return results;
 };
 

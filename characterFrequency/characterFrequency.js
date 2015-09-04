@@ -52,7 +52,24 @@ var characterFrequency = function(string) {
     array.push([key, tracker[key]]);
   }
   array.sort(function(a,b) {return b[1] - a[1]});
+
+  // for (var i=0; i<array.length; i++) {
+  //   if (array[i][1] === array[i+1][1]) {
+      
+  //   }
+  // }
   return array;
 };
 
-console.log(characterFrequency('mississippi'));
+console.log(characterFrequency('popopo'));
+
+
+// same number of p's and o's, sort ascending by character
+// result = characterFrequency('popopo');
+// result[0][0].should.equal('o');
+// result[1][0].should.eql('p');
+
+// // more p's and than o's, sort by frequency
+// result = characterFrequency('popopop');
+// result[0][0].should.equal('p');
+// result[1][0].should.eql('o'); 

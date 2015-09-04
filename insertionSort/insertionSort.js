@@ -39,28 +39,50 @@
 // It will transform an array of numbers into an array of valid objects.
 var testingTransform = function(array) {
   var transform = [];
-  
   for (var i = 0; i < array.length; i++)
     transform.push({value: array[i], i: i});
-
   return transform;
 };
 
 var insertionSort = function(array) {
-  for (var i=0; i<array.length; i++) {
-    var count = 1;
+  for (var i=1; i<array.length; i++) {
     var obj = array[i];
-    var prevObj = array[i-count];
-    while (prevObj && obj.value < prevObj.value) {
-      count++;
-      var temp = prevObj;
-      prevObj = obj;
-      obj = temp;
-    }
-  }
+    var hole = i;
+    // var insertIndex = i; // hole
 
+    // Find the insertion point
+    while (hole && obj < array[hole - 1]) { // - 1
+      // insertIndex--;
+      // void 0;
+      array[hole] = array[hole-1];
+      hole -=1;
+    }
+
+    // Insert the element
+    // array.splice(i, 1);
+    // array.splice(insertIndex, 0, obj);
+    // array[hole-1] = obj;
+  }
   return array;
-};
+}
+
+
+
+// var insertionSort = function(array) {
+//   for (var i=0; i<array.length; i++) {
+//     var count = 1;
+//     var obj = array[i];
+//     var prevObj = array[i-count];
+//     while (prevObj && obj.value < prevObj.value) {
+//       count++;
+//       var temp = prevObj;
+//       prevObj = obj;
+//       obj = temp;
+//     }
+//   }
+
+//   return array;
+// };
 
 var arrayOfObjs = testingTransform([5,2,4,4,6]);
 console.log(arrayOfObjs);
