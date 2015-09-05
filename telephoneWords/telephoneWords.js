@@ -41,6 +41,27 @@ var phoneDigitsToLetters = {
 };
 
 
-var telephoneWords = function(digitString) {
-  // TODO: return every combination that can be spelled on a phone with these digits
+var telephoneWords = function(digitStr) {
+  // returns every combination that can be spelled on a phone with 4 digits
+  var combos = [];
+
+  var getCombos = function(oneCombo) {
+    if (oneCombo.length === 4) {
+      combos.push(oneCombo);
+    } else {
+      var num = digitStr.charAt(oneCombo.length); // oneCombo.length augments each time
+      var letterStr = phoneDigitsToLetters[num];
+      var newStr;
+      for (var i=0; i<letterStr.length; i++) {
+        newStr = oneCombo + letterStr.charAt(i); // because of this
+        getCombos(newStr);
+      }
+    }
+  }
+  getCombos('');
+  
+  return combos;
 };
+
+console.log(telephoneWords('2745'));
+
