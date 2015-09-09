@@ -30,5 +30,20 @@
 
 
 
+var callbacks = [];
+
 var jsonpRequest = function(url, callback) {
+  callbacks.push(callback);
+  var script = document.createElement('script');
+  script.src = url + '?callback=callbacks[' + (callbacks.length - 1) + ']';
+  document.body.appendChild(script);
 };
+
+
+
+// var answer = jsonpRequest('http://toy-problems.hackreactor.com:3003/jsonparty', function (data) {
+//   console.log(data.response); // "Aw yeah, now we're JSONPartying"
+//   console.log(data.random); // 3558
+// });
+
+// console.log(answer());
