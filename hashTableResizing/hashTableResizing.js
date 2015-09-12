@@ -7,27 +7,73 @@
  * Resize by half whenever utilization drops below 1/4.
  */
 
-var makeHashTable = function(){
+var makeHashTable = function() {
   var result = {};
   var storage = [];
   var storageLimit = 4;
   var size = 0;
-  result.insert = function(/*...*/ 
-){
-    // TODO: implement `insert`
+
+  result.insert = function(key, value) { // everything has to do with the KEY, not value!
+    var pseudokey = getIndexBelowMaxForKey(key, storageLimit);
+
+    var bucket = storage[pseudokey];
+    if (!bucket) {
+      bucket = [];
+      storage[pseudokey] = bucket;
+    }
+    for (var i=0; i<bucket.length; i++) {
+      var tuple = bucket[i];
+      if (tuple[0] === key) { // once we're in the bucket, we don't care about the pseudokey
+        tuple[1] = value;
+        return;
+      }
+    }
+    bucket.push([key, value]); // reiteration of above -- don't care about pseudokey anymore
+    size++;
+    if (size > 0.75 * storageLimit) {
+      storageLimit = storageLimit * 2;
+    }
+
   };
 
-  result.retrieve = function(/*...*/ 
-){
-    // TODO: implement `retrieve`
+  result.retrieve = function(key) {
+    var pseudokey = getIndexBelowMaxForKey(key, storageLimit);
+
+    var bucket = storage[pseudokey];
+    if (!bucket) {
+      return null;
+    }
+    for (var i=0; i<bucket.length; i++) {
+      var tuple = bucket[i];
+      if (tuple[0] === key) {
+        return tuple[1];
+      }
+    }
+    return null;
   };
 
-  result.remove = function(/*...*/ 
-){
-    // TODO: implement `remove`
+  result.remove = function(key) {
+    var pseudokey = getIndexBelowMaxForKey(key, storageLimit);
+
+    var bucket = storage[pseudokey];
+    if (!bucket) {
+      return null;
+    }
+    for (var i=0; i<bucket.length; i++) {
+      var tuple = bucket[i];
+      if (tuple[0] === key) {
+        bucket.splice(i, 1); // splice out the current (i) tuple
+        size--;
+        if (size < 0.25 * storageLimit) {
+          storageLimit = storageLimit / 2;
+        }
+        return tuple[1];
+      }
+    }
+    return null; // return null if key not found in bucket
   };
 
-  }
+  result.resize = function
 
   return result;
 };
