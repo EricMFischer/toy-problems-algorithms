@@ -36,5 +36,26 @@ var Node = function(value){
 }
 
 var hasCycle = function(linkedList){
-  // TODO: implement me!
+  var tortoise = linkedList;
+  var hare = linkedList.next;
+  var result = false;
+
+  while (tortoise !== hare && hare !== null) {
+    tortoise = tortoise.next;
+    hare = hare.next.next;
+    if (tortoise === hare) {result = true;}
+
+  }
+
+  return result;
 };
+
+
+var nodeA = Node('A');
+var nodeB = nodeA.next = Node('B');
+var nodeC = nodeB.next = Node('C');
+var nodeD = nodeC.next = Node('D');
+var nodeE = nodeD.next = Node('E');
+console.log(hasCycle(nodeA)); // => false
+nodeE.next = nodeB;
+console.log(hasCycle(nodeA)); // => true

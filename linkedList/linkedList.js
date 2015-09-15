@@ -48,13 +48,14 @@ LinkedList.prototype.makeNode = function(value) {
 
 var list = new LinkedList();
 console.log(
-list.tail,         //yields 'null'
+// list.tail,         //yields 'null'
 list.addToTail(4),
-list.tail, // experiment
-list.addToTail(5),
+// list.tail, // experiment
+// list.addToTail(5),
 list.head.value,   //yields '4'
-list.contains(5),  //yields 'true'
-list.contains(6),  //yields 'false'
+// list.contains(5),  //yields 'true'
+// list.contains(6),  //yields 'false'
 list.removeHead(), //yields '4'
-list.tail.value   //yields '5'
+list.head,
+list.tail
 );
