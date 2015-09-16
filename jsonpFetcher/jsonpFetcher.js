@@ -30,15 +30,42 @@
 
 
 
-var callbacks = [];
+// var callbacks = [];
+
+// var jsonpRequest = function(url, callback) {
+//   callbacks.push(callback);
+//   var script = document.createElement('script');
+//   script.src = url + '?callback=callbacks[' + (callbacks.length - 1) + ']';
+//   document.body.appendChild(script);
+// };
 
 var jsonpRequest = function(url, callback) {
-  callbacks.push(callback);
   var script = document.createElement('script');
-  script.src = url + '?callback=callbacks[' + (callbacks.length - 1) + ']';
-  document.body.appendChild(script);
-};
+  script.src = url + '?callback=onResponse';
+  window.onResponse = callback;
 
+  document.body.appendChild(script);
+}
+
+var jsonpDispatcher = {};
+var jsonpRequest = (function(url, callback) {
+  return function (url, callback) {
+    var key = Math.random();
+    jsonpDispatcher[key] = function() {
+      callback.apply(this, arguments);
+      delete jsonpDispatcher[key];
+
+      var el = document.body.getElementsByClassName('script');
+      el[0].parentNode.removeChild(el[0]);
+    }
+
+    var script = document.createElement('script');
+    script.src = url + '?callback=jsonpDispatcher[' + key + ']';
+    script.className = 'script';
+    document.body.appendChild(script);
+  }
+
+}() );
 
 
 // var answer = jsonpRequest('http://toy-problems.hackreactor.com:3003/jsonparty', function (data) {

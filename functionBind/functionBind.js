@@ -27,7 +27,8 @@ var bind = function(func, context) {
   var outerArgs = Array.prototype.slice.call(arguments, 2);
   return function() {
     var innerArgs = Array.prototype.slice.call(arguments);
-    return func.apply(context, outerArgs.concat(innerArgs));
+    var args = outerArgs.concat(innerArgs);
+    return func.apply(context, args);
   };
 };
 
@@ -79,8 +80,8 @@ Function.prototype.bind = function(context) {
   var func = this;
   return function () {
     var innerArgs = Array.prototype.slice.call(arguments);
-    console.log(innerArgs);
-    return func.apply(context, outerArgs.concat(innerArgs));
+    var args = outerArgs.concat(innerArgs);
+    return func.apply(context, args);
   };
 };
 

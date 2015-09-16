@@ -170,6 +170,5 @@ var mergeSort = function(array) {
 }
 
 
-
 console.log(mergeSort([1,3,4,2]));
 console.log(mergeSort([4,7,9,1,2]));

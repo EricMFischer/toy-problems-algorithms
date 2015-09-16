@@ -73,7 +73,17 @@ var makeHashTable = function() {
     return null; // return null if key not found in bucket
   };
 
-  result.resize = function
+  result.resize = function(newSize) {
+    var copy = this.storage;
+    storageLimit = newSize;
+    storage = [];
+    size = 0;
+    copy.forEach(function(pairs) {
+      pairs.forEach(function(pair) {
+        this.insert(pair[0], pair[1]);
+      })
+    })
+  }
 
   return result;
 };

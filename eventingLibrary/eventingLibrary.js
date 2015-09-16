@@ -22,18 +22,25 @@
 
 var mixEvents = function(obj) {
   // TODO: Your code here
-  obj.events = {};
+  var events = {};
 
   obj.trigger = function(event) {
-    if (this.events[event]) {
-      this.events[event](); // .apply(null, args);
-    } else {
-      console.log('this event doesn\'t exist');
+    if (events[event]) {
+      var args = Array.prototype.slice.call(arguments, 1);
+      events[event].forEach(function (callback) {
+        callback.apply(obj, args);
+      });  
     }
+      // if (this.events[event]) {
+    //   this.events[event](); // .apply(null, args);
+    // } else {
+    //   console.log('this event doesn\'t exist');
+    // }
   }
 
   obj.on = function(event, callback) {
-    this.events[event] = callback;
+    events[event] = events[event] || [];
+    events[event].push(callback);
   }
 
   return obj;

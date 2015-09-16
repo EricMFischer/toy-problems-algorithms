@@ -48,14 +48,13 @@ var insertionSort = function(array) {
   for (var i=1; i<array.length; i++) {
     var obj = array[i];
     var hole = i;
-    // var insertIndex = i; // hole
 
     // Find the insertion point
-    while (hole && obj < array[hole - 1]) { // - 1
-      // insertIndex--;
-      // void 0;
+    while (hole && obj.value < array[hole - 1].value) { // need 'hole && ...' so while loop doesn't go on forever
+      var temp = array[hole];
       array[hole] = array[hole-1];
-      hole -=1;
+      array[hole-1] = temp;
+      hole -= 1;
     }
 
     // Insert the element
