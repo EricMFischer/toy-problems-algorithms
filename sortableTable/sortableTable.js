@@ -17,59 +17,99 @@
 // order: 1 --> ascending
 // order: -1 --> descending
 
-$(function sortTable(order, nthChildOfTableRow) {
-  var rows = $('#myTable tbody tr').get();
-  console.log(rows);
+// $(function sortTable(order, nthChildOfTableRow) {
+//   var rows = $('#myTable tbody tr').get();
+//   console.log(rows);
 
-  rows.sort(function(a,b) {
-    var A = $(a).children('td').eq(nthChildOfTableRow).text().toUpperCase();
-    var B = $(b).children('td').eq(nthChildOfTableRow).text().toUpperCase();
+//   rows.sort(function(a,b) {
+//     var A = $(a).children('td').eq(nthChildOfTableRow).text().toUpperCase();
+//     var B = $(b).children('td').eq(nthChildOfTableRow).text().toUpperCase();
 
-    if (A < B) {
-      return -1*order;
-    }
-    if (A > B) {
-      return 1*order;
-    }
-    return 0;
+//     if (A < B) {
+//       return -1*order;
+//     }
+//     if (A > B) {
+//       return 1*order;
+//     }
+//     return 0;
+//   });
+
+//   $.each(rows, function(index, row) {
+//     $('#myTable').children('tbody').append(row);
+//   });
+
+// });
+
+// // prevAll: gets all previous sibling elements
+
+// var order_ItemName = 1;
+// var order_NumOfPounds = 1;
+// var order_PricePerPound = 1;
+// var order_ExpirationDate = 1;
+
+// // var hey = $('#myTable thead tr:eq(1)').get();
+// // console.log(hey);
+
+// $('#myTable thead tr:eq(0)').click(function() {
+//   order_ItemName *= -1;
+//   var n = $(this).prevAll().length;
+//   sort(order_ItemName, n);
+// });
+
+// $('#myTable thead tr').eq(1).click(function() {
+//   order_NumOfPounds *= -1;
+//   var n = $(this).prevAll().length;
+//   sort(order_NumOfPounds, n);
+// });
+
+// $('#myTable thead tr').eq(2).click(function() {
+//   order_PricePerPound *= -1;
+//   var n = $(this).prevAll().length;
+//   sort(order_PricePerPound, n);
+// });
+
+// $('#myTable thead tr').eq(3).click(function() {
+//   order_ExpirationDate *= -1;
+//   var n = $(this).prevAll().length;
+//   sort(order_ExpirationDate, n);
+// });
+
+
+
+
+
+
+
+
+
+$(function() {
+  var $tbody = $('tbody');
+  var $rows = $tbody.children();
+
+  // helpers
+  var getCellValue = function(rowEl, colIx) {
+    var td = rowEl.children[colIx];
+    return $(td).text();
+  }
+
+  var getType = function(colIx) { // returns the type of data in that row ('string' data or 'number' data)
+    var val = getCellValue($rows[0], colIx);
+    return isNan(val) ? 'string' : 'number';
+  }
+
+  // sort colummn when table header is clicked
+  $('th').on('click', function(e) {
+    var colIx = $(this).index(); // in jquery cb for any event handler, this element ('th') is the jquery tag
+    var type = getType(colIx);
+
+    $rows.detach().sort(function(row1, row2) {
+      var value1 = getCellValue(row1, colIx);
+      var value2 = getCellValue(row2, colIx);
+      if (type === 'string') return value1 > value2;
+      if (type === 'number') return value1 - value2;
+    });
   });
 
-  $.each(rows, function(index, row) {
-    $('#myTable').children('tbody').append(row);
-  });
-
-});
-
-// prevAll: gets all previous sibling elements
-
-var order_ItemName = 1;
-var order_NumOfPounds = 1;
-var order_PricePerPound = 1;
-var order_ExpirationDate = 1;
-
-// var hey = $('#myTable thead tr:eq(1)').get();
-// console.log(hey);
-
-$('#myTable thead tr:eq(0)').click(function() {
-  order_ItemName *= -1;
-  var n = $(this).prevAll().length;
-  sort(order_ItemName, n);
-});
-
-$('#myTable thead tr').eq(1).click(function() {
-  order_NumOfPounds *= -1;
-  var n = $(this).prevAll().length;
-  sort(order_NumOfPounds, n);
-});
-
-$('#myTable thead tr').eq(2).click(function() {
-  order_PricePerPound *= -1;
-  var n = $(this).prevAll().length;
-  sort(order_PricePerPound, n);
-});
-
-$('#myTable thead tr').eq(3).click(function() {
-  order_ExpirationDate *= -1;
-  var n = $(this).prevAll().length;
-  sort(order_ExpirationDate, n);
-});
+  // append back to body
+  $tbody.append($rows);
+})
