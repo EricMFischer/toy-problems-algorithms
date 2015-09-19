@@ -3,7 +3,7 @@
  *
  * An LRU cache gives O(1) get(key) and set(key, val) operations,
  * much like a hashtable, but once it reaches its limit for stored
- * number of items, removes the least recently used (i.e. the oldest
+ * number of items, it removes the least recently used (i.e. the oldest
  * by get-date) item from the cache in O(1) time.
  *
  * For instance:
@@ -30,19 +30,59 @@
  * You will need a doubly-linked list (provided).
  */
 
+
+
 var LRUCache = function (limit) {
+  this.size = 0; // current size of cache
+  this.limit = limit; // # of items cache can hold
+  this.map = {};
+  this.head = null;
+  this.tail = null;
 };
 
-var LRUCacheItem = function (val, key) {
+var LRUCacheItem = function (key, value) {
+  if (typeof key != 'undefined' && key !== null) {
+    this.key = key;
+  }
+  if (typeof value != 'undefined' && value !== null) {
+    this.value = value;
+  }
+  this.prev = null;
+  this.next = null;
+
 };
 
 LRUCache.prototype.size = function () {
 };
 
-LRUCache.prototype.get = function (key) {
+// retrieve a single entry from cache
+LRUCache.prototype.get = function (key) { // get and register use of key. return value of key
+  if (this.map[key]) {
+    var value = this.map[key].value;
+    var node = LRUCacheItem(key, value);
+    this.remove(key);
+    this.setHead(node);
+    return value;
+  } else {
+    console.log('Key ' + key + ' does not exist in cache.');
+  }
 };
 
+// adds new value to cache. overwrite entry if it already exists
 LRUCache.prototype.set = function (key, val) {
+  var node = LRUCacheItem(key, value);
+  if (this.map[key]) {
+    this.map[key].value = node.value;
+    this.remove(node.key);
+  } else {
+    if (this.size >= this.limit) {
+      delete this.map[this.tail.key];
+      this.size--;
+      this.tail = this.tail.prev;
+      this.tail.next = null;
+    }
+  }
+  this.setHead(node);
 };
 
 

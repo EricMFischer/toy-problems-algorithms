@@ -24,16 +24,16 @@ var longestPalindrome = function (string) {
       }
     } 
 
-    for (var i=0; i<string.length; i++) { // for even palindromes
-      var letter = string[i];
-      var nextLetter = string[i+1];
+    for (var j=0; j<string.length; j++) { // for even palindromes
+      var letter = string[j];
+      var nextLetter = string[j+1];
       var numAway = 1;
 
       if (letter === nextLetter) {
         palindrome = letter + nextLetter;
-        while (string[i+numAway+1] === string[i-numAway]) {
-          palindrome += string[i+numAway+1];
-          palindrome = string[i-numAway] + palindrome;
+        while (string[j+numAway+1] === string[j-numAway]) {
+          palindrome += string[j+numAway+1];
+          palindrome = string[j-numAway] + palindrome;
           numAway++;
         }
         if (palindrome.length > longestPalindrome.length) {
