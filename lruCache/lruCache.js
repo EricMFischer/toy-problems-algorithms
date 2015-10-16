@@ -40,49 +40,87 @@ var LRUCache = function (limit) {
   this.tail = null;
 };
 
-var LRUCacheItem = function (key, value) {
-  if (typeof key != 'undefined' && key !== null) {
-    this.key = key;
-  }
-  if (typeof value != 'undefined' && value !== null) {
-    this.value = value;
-  }
-  this.prev = null;
-  this.next = null;
-
+var LRUCacheItem = function (key, value, node) {
+  this.val = val || null;
+  this.key = key || null;
+  this.node = node || null;
 };
 
 LRUCache.prototype.size = function () {
 };
 
 // retrieve a single entry from cache
-LRUCache.prototype.get = function (key) { // get and register use of key. return value of key
-  if (this.map[key]) {
-    var value = this.map[key].value;
-    var node = LRUCacheItem(key, value);
-    this.remove(key);
-    this.setHead(node);
-    return value;
-  } else {
-    console.log('Key ' + key + ' does not exist in cache.');
+LRUCache.prototype.get = function(key) {
+  if (!(key in this._map)) {
+    return undefined;
   }
-};
+  var item = this._map[key];
+  this._promote(item.node);
+  return item.val;
+}
+// LRUCache.prototype.get = function (key) { // get and register use of key. return value of key
+//   if (this.map[key]) {
+//     var value = this.map[key].value;
+//     var node = LRUCacheItem(key, value);
+//     this.remove(key);
+//     this.setHead(node);
+//     return value;
+//   } else {
+//     console.log('Key ' + key + ' does not exist in cache.');
+//   }
+// };
 
 // adds new value to cache. overwrite entry if it already exists
+// LRUCache.prototype.set = function (key, val) {
+//   var node = LRUCacheItem(key, value);
+//   if (this.map[key]) {
+//     this.map[key].value = node.value;
+//     this.remove(node.key);
+//   } else {
+//     if (this.size >= this.limit) {
+//       delete this.map[this.tail.key];
+//       this.size--;
+//       this.tail = this.tail.prev;
+//       this.tail.next = null;
+//     }
+//   }
+//   this.setHead(node);
+// };
+LRUCache.prototype._full = function() {
+  return this._size >= this._limit;
+}
+
+._prune = function() {
+  var oldest = this._priority.pop();
+  // return last item from LRU cache
+
+}
+
 LRUCache.prototype.set = function (key, val) {
-  var node = LRUCacheItem(key, value);
-  if (this.map[key]) {
-    this.map[key].value = node.value;
-    this.remove(node.key);
+  if (this._map.hasOwnProperty(key)) { // key is present
+    // update(key);
+    // promote(key);
+    item = this._map[key];
+    item.val = val;
+    this._promote(item.node);
   } else {
-    if (this.size >= this.limit) {
-      delete this.map[this.tail.key];
-      this.size--;
-      this.tail = this.tail.prev;
-      this.tail.next = null;
+    if (!this._full()) { // cache is not full
+      // add(key);
+      // promote(key);
+      item = new LRUCacheItem(val, key);
+      item.node = this._priority.unshift(item);
+      this._map[key] = item;
+    } else if (this._full()) { // cache is full
+      // prune(cache);
+      // add(key);
+      // promote(key);
+      this._prune(); // decrement size
+      item = new LRUCacheItem(val, key);
+      item.node = this._priority.unshift(item);
+      this._map[key] = item;
+      this._size += 1; // increment size
     }
   }
-  this.setHead(node);
 };
 
 
@@ -97,6 +135,14 @@ var ListNode = function (prev, val, next) {
   this.val = val;
   this.next = next || null;
 };
+
+
+
+
+
+
+
+
 
 // Insert at the head of the list.
 List.prototype.unshift = function (val) {

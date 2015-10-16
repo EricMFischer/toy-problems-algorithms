@@ -5,6 +5,50 @@
  *
  */
 
+// var LinkedList = function(){
+//   this.head = null;
+//   this.tail = null;
+// };
+
+// //write methods here!
+
+// LinkedList.prototype.addToTail = function(value) {
+//   var newTail = this.makeNode(value);
+//   if (!this.head) {this.head = newTail;}
+//   else {this.tail.next = newTail;}
+//   this.tail = newTail;
+// };
+
+// LinkedList.prototype.removeHead = function() {
+//   if (!this.head) {return null;}
+//   var currentHead = this.head; // store head before you change it
+//   this.head = this.head.next;
+//   return currentHead.value;
+// };
+
+// LinkedList.prototype.contains = function(value) {
+//   var node = this.head;
+//   while (node) {
+//     if (node.value === value) {
+//       return true;
+//     }
+//     node = node.next;
+//   }
+//   return false;
+// };
+
+// LinkedList.prototype.makeNode = function(value) {
+//   var node = {};
+//   node.value = value;
+//   node.next = null;
+//   return node;
+// };
+
+
+
+
+
+
 var LinkedList = function(){
   this.head = null;
   this.tail = null;
@@ -14,36 +58,40 @@ var LinkedList = function(){
 
 LinkedList.prototype.addToTail = function(value) {
   var newTail = this.makeNode(value);
-  if (!this.head) {this.head = newTail;}
-  else {this.tail.next = newTail;}
-  // if (this.tail) {this.tail.next = newTail;}
-  this.tail = newTail;
+  if (!this.head) {
+    this.head = newTail;
+    this.tail = newTail;
+  } else {
+    this.tail.next = newTail;
+    this.tail = newTail;
+  }
 };
 
 LinkedList.prototype.removeHead = function() {
-  if (!this.head) {return null;}
-  var currentHead = this.head; // store head before you change it
+  var head = this.head;
   this.head = this.head.next;
-  return currentHead.value;
+  return head;
 };
 
-LinkedList.prototype.contains = function(value) {
-  var node = this.head;
-  while (node) {
-    if (node.value === value) {
-      return true;
-    }
-    node = node.next;
-  }
-  return false;
+LinkedList.prototype.contains = function() {
 };
 
 LinkedList.prototype.makeNode = function(value) {
-  var node = {};
-  node.value = value;
+  var node  = {};
+  node.value = null;
   node.next = null;
   return node;
 };
+
+
+
+
+
+
+
+
+
+
 
 
 var list = new LinkedList();

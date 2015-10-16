@@ -16,22 +16,30 @@ var makeHashTable = function() {
   result.insert = function(key, value) { // everything has to do with the KEY, not value!
     var pseudokey = getIndexBelowMaxForKey(key, storageLimit);
 
+    // var bucket = storage[pseudokey];
+    // if (!bucket) {
+    //   bucket = [];
+    //   storage[pseudokey] = bucket;
+    // }
+    storage[pseduokey] = storage[pseudokey] || [];
     var bucket = storage[pseudokey];
-    if (!bucket) {
-      bucket = [];
-      storage[pseudokey] = bucket;
-    }
+
+    var replaced = false;
     for (var i=0; i<bucket.length; i++) {
       var tuple = bucket[i];
       if (tuple[0] === key) { // once we're in the bucket, we don't care about the pseudokey
         tuple[1] = value;
-        return;
+        replaced = true;
       }
     }
-    bucket.push([key, value]); // reiteration of above -- don't care about pseudokey anymore
-    size++;
-    if (size > 0.75 * storageLimit) {
-      storageLimit = storageLimit * 2;
+
+    if (!replaced) {
+      bucket.push([key, value]);
+      size++;
+    }
+
+    if (size >= 0.75 * storageLimit) {
+      
     }
 
   };
@@ -74,11 +82,11 @@ var makeHashTable = function() {
   };
 
   result.resize = function(newSize) {
-    var copy = this.storage;
-    storageLimit = newSize;
-    storage = [];
+    var oldStorage = this.storage; // holding onto the old hashtable
+    storageLimit = newSize; // reset all 3 things at the top to initial values
+    storage = []; // deletes everything in the old hashtable
     size = 0;
-    copy.forEach(function(pairs) {
+    oldStorage.forEach(function(pairs) {
       pairs.forEach(function(pair) {
         this.insert(pair[0], pair[1]);
       })
