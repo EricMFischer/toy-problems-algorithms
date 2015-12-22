@@ -9,67 +9,23 @@
  */
 
 var binarySearch = function(array, element) {
-  var binary = function(start, end) {
-    if (start === end) {return 0;} // if array is empty
-    var midIndex = start + Math.floor((end - start) / 2); // need to add start to keep midIndex intact
+  var midpoint = Math.floor(array.length/2);
+  var firstHalf = array.slice(0, midpoint);
+  var secondHalf = array.slice(midpoint, array.length);
+  var secondHalfFirstValue = array[midpoint];
 
-    if (element === array[midIndex]) {
-      return midIndex;
-    } else if (element > array[midIndex]) {
-      return binary(midIndex, end);
-    } else if (element < array[midIndex]) {
-      return binary(start, midIndex);
-    }
+  if (array[0] === element) {return 0;}
+  if (array[array.length-1] === element) {return array.length-1;}
+  if (array[midpoint] === element) {return midpoint;}
+
+  if (element === firstHalf[0] || element === secondHalf[0]) {
+    return midpoint;
+  } else if (element < secondHalfFirstValue) {
+    return binarySearch(firstHalf, element);
+  } else if (element > secondHalfFirstValue) {
+    return binarySearch(secondHalf, element);
   }
-  return binary(0, array.length);
 }
 
-
-//   var binary = function(array, element) {
-//     var midIndex = Math.floor(array.length/2);
-//     var leftSide = array.slice(0, midIndex); // [1,2]
-//     var rightSide = array.slice(midIndex, array.length); // [3,4,5]
-
-//     if (array[0] === element) {return 0;}
-//     if (array[array.length-1] === element) {return array.length-1;}
-//     if (array[midIndex] === element) {return midIndex;}
-    
-//     if (element > array[midIndex]) { // search rightSide
-//       return binary(rightSide, element);
-//     } else if (element < array[midIndex]) { //search leftSide
-//       return binary(leftSide, element);
-//     }
-//   }
-
-//   return binary(array, element);
-// }
-
-
-// Refactored with subroutine
-// var binarySearch = function (array, target, left, right) {
-//   var left = left || 0;
-//   var right = right || array.length-1;
-//   var midIndex = Math.floor((left + right)/2);
-//   //var leftSide = array.slice( 0, midIndex );
-//   //var rightSide = array.slice( midIndex, arrLength );
-
-//   // if (array[0] === target) {return 0;}
-//   // if (array[array.length-1] === target) {return array.length-1;}
-//   if (array[midIndex] === target) {return midIndex;}
-  
-//   if (target < array[midIndex]) {
-//     right = midIndex - 1;
-//     return binarySearch(array, target, left, right);
-
-//   } else if (target > array[midIndex]) {
-//     left = midIndex + 1;
-//     return binarySearch(array, target, left, right);
-
-//   } else {
-//     return null;
-//   }
-// };
-
-var findIndex = binarySearch([1, 2, 3, 4, 5], 4);
+var findIndex = binarySearch([1, 2, 3, 4, 5, 6, 7, 8], 4);
 console.log(findIndex); // [3]
-
