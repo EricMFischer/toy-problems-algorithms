@@ -11,8 +11,8 @@ var makeHashTable = function(){
   result.insert = function(key, value) {
     var index = getIndexBelowMaxForKey(key, storageLimit);
 
-    var bucket = storage[index]; // retrieve bucket at a particular index
-    if (!bucket) { //1st edge case--if bucket doesn't even exist
+    var bucket = storage[index];
+    if (!bucket) { // 1st edge case: if bucket doesn't exist at index
       bucket = [];
       storage[index] = bucket;
     }
@@ -20,7 +20,7 @@ var makeHashTable = function(){
       var tuple = bucket[i];
       if (tuple[0] === key) {
         tuple[1] = value;
-        return; // exit early bc we're overwriting
+        return;
       }
     }
     bucket.push([key, value]);
@@ -31,7 +31,6 @@ var makeHashTable = function(){
 
     var bucket = storage[index];
     if (!bucket) {return null;}
-
     for (var i=0; i<bucket.length; i++) {
       var tuple = bucket[i];
       if (tuple[0] === key) {
@@ -46,7 +45,6 @@ var makeHashTable = function(){
 
     var bucket = storage[index];
     if (!bucket) {return null;}
-
     for (var i=0; i<bucket.length; i++) {
       var tuple = bucket[i];
       if (tuple[0] === key) {
@@ -56,13 +54,12 @@ var makeHashTable = function(){
     }
     return null;
   };
-
   return result;
 };
 
 // This is a "hashing function". You don't need to worry about it, just use it
 // to turn any string into an integer that is well-distributed between
-// 0 and max - 1
+// 0 and max 1
 var getIndexBelowMaxForKey = function(str, max){
   var hash = 0;
   for (var i = 0; i < str.length; i++) {
@@ -72,4 +69,3 @@ var getIndexBelowMaxForKey = function(str, max){
   }
   return hash % max;
 };
-

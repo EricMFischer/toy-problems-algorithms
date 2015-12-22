@@ -35,11 +35,10 @@
  *
  */
 
-
-var characterFrequency = function(string) {
+var characterFrequency = function(str) {
   var tracker = {};
-  for (var i=0; i<string.length; i++) {
-    var letter = string[i];
+  for (var i=0; i<str.length; i++) {
+    var letter = str[i];
     if (!tracker[letter]) {
       tracker[letter] = 1;
     } else {
@@ -47,29 +46,12 @@ var characterFrequency = function(string) {
     }
   }
 
-  var array = [];
-  for (var key in tracker) {
-    array.push([key, tracker[key]]);
+  var answer = [];
+  for (letter in tracker) {
+    answer.push([letter, tracker[letter]]);
   }
-  array.sort(function(a,b) {return b[1] - a[1]});
-
-  // for (var i=0; i<array.length; i++) {
-  //   if (array[i][1] === array[i+1][1]) {
-      
-  //   }
-  // }
-  return array;
+  answer.sort(function(a,b) {return b[1] - a[1]}); // sorts in descending order by frequency
+  return answer;
 };
 
-console.log(characterFrequency('popopo'));
-
-
-// same number of p's and o's, sort ascending by character
-// result = characterFrequency('popopo');
-// result[0][0].should.equal('o');
-// result[1][0].should.eql('p');
-
-// // more p's and than o's, sort by frequency
-// result = characterFrequency('popopop');
-// result[0][0].should.equal('p');
-// result[1][0].should.eql('o'); 
+console.log(characterFrequency('mississippi'));

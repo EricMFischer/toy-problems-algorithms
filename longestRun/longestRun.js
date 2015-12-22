@@ -12,15 +12,14 @@
  * inputs well.
  */
 
-// How do I refresh the streak array so it's new after the current streak ends?
 var longestRun = function(str) {
   var indices = [0,0];
 
   var streakFinder = function(str) {
     var streak = [];
-    for (var idx=0; idx<str.length; idx++) {
-      if (str[idx] === str[idx+1]) {
-        streak.push(idx, idx+1);
+    for (var i=0; i<str.length; i++) {
+      if (str[i] === str[i+1]) {
+        streak.push(i, i+1);
       }
       var start = streak[0];
       var end = streak[streak.length-1];
@@ -37,7 +36,6 @@ var longestRun = function(str) {
 
   return indices;
 }
-
 
 // If you need a random string generator, use this!
 // (you wont need this function for your solution but it may help with testing)

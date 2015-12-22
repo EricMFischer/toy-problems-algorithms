@@ -9,6 +9,7 @@
 var longestPalindrome = function (string) {
   var longestPalindrome = '';
   var palindrome;
+
   var findPalindrome = function(string) {
     for (var i=0; i<string.length; i++) {
       var letter = string[i];
@@ -41,16 +42,11 @@ var longestPalindrome = function (string) {
         }
       }
     }
-
-  }; // end of func
+  };
   findPalindrome(string);
 
   return longestPalindrome;
 };
-
-
-
-// -------- TEST --------- //
 
 console.log(longestPalindrome("My dad is a racecar athlete that does good deeds")); // 'a racecar a'
 console.log(longestPalindrome("I like to perform good deeds")); // 'deed'

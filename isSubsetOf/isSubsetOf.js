@@ -6,10 +6,9 @@
  * var a = ['commit','push']
  * a.isSubsetOf(['commit','rebase','push','blame']) // true
  *
- * NOTE: You should disregard duplicates in the set.
+ * NOTE: Disregard duplicates in the set.
  *
  * var b = ['merge','reset','reset']
- *
  * b.isSubsetOf(['reset','merge','add','commit']) // true 
  *
  * Extra credit: Make the method work for arrays that contain any value,
@@ -17,17 +16,17 @@
 */
 
 Array.prototype.isSubsetOf = function(array) {
-  return subsetTruth(objectify(this), objectify(array));
+  return subsetBool(makeWordsObj(this), makeWordsObj(array));
 }
 
-var subsetTruth = function(calledOnObj, inputObj) {
-  for (var key in calledOnObj) {
-    if (!inputObj.hasOwnProperty(key)) {return false;}
+var subsetBool = function(subset, set) {
+  for (word in subset) {
+    if (!set.hasOwnProperty(word)) {return false;}
   }
   return true;
 }
 
-var objectify = function(array) {
+var makeWordsObj = function(array) {
   return array.reduce(function(obj, item) {
     obj[item] = true;
     return obj;

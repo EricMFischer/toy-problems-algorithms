@@ -9,11 +9,7 @@
  * "bubble" to the end of the array. Once it gets to the end of the array, it
  * starts over and repeats the process until the array is sorted numerically.
  *
- * Implement a function that takes an array and sorts it using this technique.
- * Don't use JavaScript's built-in sorting function (Array.prototype.sort).
- *
- * QUERY: What's the time complexity of your algorithm? If you don't already
- * know, try to intuit this without consulting the Googles.
+ * QUERY: What's the time complexity of your algorithm?
  *
  * Extra credit: Optimization time! During any given pass, if no elements are
  * swapped we can assume the list is sorted and can exit the function early.
@@ -24,21 +20,14 @@
  * your algorithm changed?
 */
 
-/*
- * Example usage:
- * bubbleSort([2, 1, 3]); // yields [1, 2, 3]
- *
-*/
-
-// Things to consider
 // input, outputs, constraints, space & time complexity
 // sorted array is being built up from the right side
-// this is Quadratic (n^2) time complexity (it's essentially like have 2 for loops)
+// quadratic (n^2) time complexity (essentially 2 for loops)
 
 var bubbleSort = function(array) {
   var sorted = false;
   while (!sorted) {
-    sorted = true; // has to be here because: within the for loop, 'sorted' could get erroneously set to true just because the last 2 elements are in order
+    sorted = true;
     for (var i=0; i<array.length; i++) {
       if (array[i] > array[i+1]) {
         sorted = false;
@@ -52,4 +41,3 @@ var bubbleSort = function(array) {
 }
 
 console.log(bubbleSort([4,3,2,1]));
-

@@ -50,7 +50,6 @@ var nthFibonacci = function(n) {
 console.log(nthFibonacci(4));
 // Space complexity is constant because we're disregarding the previous n's with the exception of the last two
 
-
 // As we increment up, we save each value in the array. So we'd just be accessing the last two places in our array without having to calculate them again. This is linear time.
 // var fibMem = function(n) {
 //   var mem = [];

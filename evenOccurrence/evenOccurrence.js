@@ -6,24 +6,23 @@
 
 /*
  * example usage:
- * var onlyEven = evenOccurrence([1, 7, 2, 4, 5, 6, 8, 9, 6, 4]);
- * console.log(onlyEven); //  4
+ * var firstEven = evenOccurrence([1, 7, 2, 4, 5, 6, 8, 9, 6, 4]);
+ * console.log(firstEven); //  4
 */
 
 var evenOccurrence = function(arr) {
-  var obj = {};
+  var numbersObj = {};
   for (var i=0; i<arr.length; i++) {
     var num = arr[i];
-    if (obj[num]) {obj[num] += 1;}
-    else {obj[num] = 1;}
+    if (numbersObj[num] === undefined) {numbersObj[num] = 1;}
+    else {numbersObj[num] += 1;}
   }
-  for (var key in obj) {
-    if (obj[key] % 2 === 0) {
-      return parseInt(key);
+  for (num in numbersObj) {
+    if (numbersObj[num] % 2 === 0) {
+      return parseInt(num);
     }
   }
 };
 
-
-var onlyEven = evenOccurrence([1, 3, 3, 3, 2, 4, 4, 2, 5]);
-console.log(onlyEven); //  4
+var test = evenOccurrence([1, 3, 3, 3, 2, 4, 4, 2, 5]);
+console.log(test); //  4

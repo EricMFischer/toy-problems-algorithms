@@ -7,21 +7,14 @@
  * Extra credit: Make your function handle negative numbers.
  */
 
-// Sort compare function
-// if return answer is:
-// positive --> b goes first
-// negative --> a goes first
+var largestProductOfThree = function(arr) {
+  arr.sort(function(a,b) {return b - a;}); // descending order
+  var positives = arr[0] * arr[1] * arr[2];
+  var withNegatives = arr[0] * arr[arr.length-1] * arr[arr.length - 2];
 
-var largestProductOfThree = function(array) {
-  array.sort(function(a,b) {return b-a;});
-  var length = array.length;
-  var positives = array[0] * array[1] * array[2];
-  var twoNegatives = array[0] * array[length-1] * array[length - 2];
-
-  if (positives > twoNegatives) {return positives;}
-  else {return twoNegatives;}
+  if (positives > withNegatives) {return positives;}
+  else {return withNegatives;}
 };
-
 
 console.log(largestProductOfThree([5, -10, 4, 6, 2, 3, -8, 4]));
 

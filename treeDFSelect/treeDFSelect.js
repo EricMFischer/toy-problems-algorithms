@@ -25,10 +25,6 @@
   *
   */
 
-/*
- * Basic tree that stores a value.
- */
-
 // Breadth-first search: uses a queue. Don't use this method for a massive tree
 // Depth-first search: doesn't have to keep track (w/ a queue) of all nodes
 
@@ -49,7 +45,7 @@ Tree.prototype.DFSelect = function(filter) {
   return results;
 };
 
-//Solution without a subroutine, because I'm becoming a badass
+// Solution without a subroutine, because I'm becoming a badass
 // Tree.prototype.DFSelect = function(filter, depth, results) {
 //   var results = results || [];
 //   var depth = depth || 0;
@@ -108,7 +104,6 @@ Tree.prototype.removeChild = function(child){
     throw new Error("That node is not an immediate child of this tree");
   }
 };
-
 
 var root1 = new Tree(1);
 var branch2 = root1.addChild(2);

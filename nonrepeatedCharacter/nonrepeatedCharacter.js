@@ -15,8 +15,8 @@ var firstNonRepeatedCharacter = function(string) {
     else {obj[letter]++;}
   }
 
-  for (var key in obj) {
-    if (obj[key] === 1) {return key;}
+  for (letter in obj) {
+    if (obj[letter] === 1) {return letter;}
   }
   return null;
 }

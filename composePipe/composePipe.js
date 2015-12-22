@@ -1,6 +1,4 @@
 /*
- * Write Compose and Pipe functions.
- * 
  * Step 1: Implement the function Compose: 
  *
  * Compose should return a function that is the composition of a list of
@@ -34,10 +32,9 @@
 
 'use strict';
 
-
 var compose = function() {
   var args = arguments;
-  return function(x) {
+  return function(x) { // x is 'phillip'
     for (var i=args.length-1; i>=0; i--) {
       x = args[i](x);
     }
@@ -49,8 +46,6 @@ var greet = function(name){ return 'hi: ' + name;}
 var exclaim = function(statement) { return statement.toUpperCase() + '!';}
 var welcome = compose(greet, exclaim);
 console.log(welcome('phillip')); // 'hi: PHILLIP!'
-
-
 
 var pipe = function() {
   var args =arguments;
@@ -66,5 +61,4 @@ var add2 = function(number){ return number + 2; }
 var multiplyBy3 = function(number){ return number * 3; }
 var answer1 = pipe(add2, multiplyBy3)(5);
 var answer2 = pipe(add2, multiplyBy3, multiplyBy3)(5);
-console.log(answer1); // 21
-console.log(answer2); // 63
+console.log(answer1, answer2); // 21 63
