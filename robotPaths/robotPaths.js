@@ -29,15 +29,15 @@ var makeBoard = function(n) {
 };
 
 var robotPaths = function(n, board, i, j) {
-  var solutionCount = solutionCount || 0;
-  if (!board) {
-    var board = makeBoard(n);
-    board[0][0] = true;
-  }
-  
+  var board = makeBoard(n);
+  console.log(board);
 
-  return board;
+  // var solutionCount = solutionCount || 0;
+  // if (!board) {
+  //   var board = makeBoard(n);
+  //   board[0][0] = true;
+  // }
+  // return board;
 }
 
-console.log(makeBoard(5)); 
 console.log(robotPaths(5));
