@@ -1,3 +1,41 @@
+// BIND
+var bind = function(fn, context) {
+  return function(){
+    fn.call(context);
+  }
+}
+
+Function.prototype.bind = function(fn, context) {
+  return function(){
+    fn.call(context);
+  }
+}
+
+// To call bind as a method on different objects
+Function.prototype.bind = function(context) {
+  var fn = this; // 'this' is bound to original fn, the one 'bind' was called on
+  return function(){
+    return fn.call(context); // 'bind' needs return statement
+  }
+}
+
+Function.prototype.bind = function(context) {
+  var fn = this;
+  return function(){
+    return fn.apply(context, arguments);
+  }
+}
+
+// Partical app. (currying) with bind
+Function.prototype.bind = function(context) {
+  var bindArgs = Array.prototype.slice.call(arguments, 1);
+  var fn = this;
+  return function() {
+    var args = bindArgs.concat(arguments);
+    return fn.apply(context, args);
+  }
+}
+
 /*
  * function bind():
  *
@@ -22,15 +60,15 @@
  * result === 'foobar'; // true
  *
 */
-
-var bind = function(func, context) {
-  var outerArgs = Array.prototype.slice.call(arguments, 2);
+var bind = function(fn, context) {
+  var args = Array.prototype.slice.call(arguments, 2);
   return function() {
-    var innerArgs = Array.prototype.slice.call(arguments);
-    var args = outerArgs.concat(innerArgs);
-    return func.apply(context, args);
-  };
-};
+    var curriedArgs = Array.prototype.slice.call(arguments);
+    var allArgs = args.concat(curriedArgs);
+    return fn.apply(context, allArgs);
+  }
+}
+
 
 var alice = {
   name: 'alice',
@@ -38,7 +76,6 @@ var alice = {
     console.log(this.name);
   }
 }
-
 var boundShout = bind(alice.shout, alice);
 boundShout(); // alerts 'alice'
 boundShout = bind(alice.shout, {name: 'bob'});
@@ -73,20 +110,16 @@ console.log(result === 'foobar'); // true
  * result === 'foobar'; // true
  *
 */
-
 Function.prototype.bind = function(context) {
-  // TODO: Your code here
-  var outerArgs = Array.prototype.slice.call(arguments, 1);
-  var func = this;
-  return function () {
-    var innerArgs = Array.prototype.slice.call(arguments);
-    var args = outerArgs.concat(innerArgs);
-    return func.apply(context, args);
-  };
-};
+  var args = Array.prototype.slice.call(arguments, 1);
+  var fn = this;
+  return function() {
+    var curriedArgs = Array.prototype.slice.call(arguments);
+    var allArgs = args.concat(curriedArgs);
+    return fn.apply(context, allArgs);
+  }
+}
 
-
-// ---------------------------------------- // 
 
 var boundShout = alice.shout.bind(alice);
 boundShout(); // alerts 'alice'

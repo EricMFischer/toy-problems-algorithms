@@ -39,5 +39,5 @@ var robotPaths = function(n, board, i, j) {
   return board;
 }
 
-console.log(makeBoard(5));
+console.log(makeBoard(5)); 
 console.log(robotPaths(5));

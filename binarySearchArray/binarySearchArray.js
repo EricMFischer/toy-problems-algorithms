@@ -70,6 +70,6 @@ var binarySearch = function(array, element) {
 //   }
 // };
 
-var index = binarySearch([1, 2, 3, 4, 5], 4);
-console.log(index); // [3]
+var findIndex = binarySearch([1, 2, 3, 4, 5], 4);
+console.log(findIndex); // [3]
 

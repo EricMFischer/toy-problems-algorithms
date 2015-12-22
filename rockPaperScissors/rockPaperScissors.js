@@ -20,27 +20,46 @@ When recurse runs for the first time, we can treat line 30 as a "master for loop
 Rounds is what determines how many levels we go down through recursion.
 */
 
+// With helper function
 var rockPaperScissors = function(num) {
   var rounds = num || 3;
-  var combos = [];
-  var game = [];
+  var combinations = [];
   var choices = ['rock', 'paper', 'scissors'];
+  var game = [];
 
   var recurse = function(rounds) {
     if (rounds === 0) {
-      combos.push(game.slice());
+      combinations.push(game.slice());
       return;
-    } else {
-      for (var i=0; i<choices.length; i++) {
-        game.push(choices[i]);
-        recurse(rounds - 1);
-        game.pop();
-      }
+    }
+    for (var i=0; i<choices.length; i++) {
+      var choice = choices[i];
+      game.push(choice);
+      recurse(rounds - 1);
+      game.pop(); // takes off the last choice after the empty 'return' statement brings control back here
     }
   }
-  recurse(num);
-
-  return combos;
+  recurse(rounds);
+  return combinations;
 }
+
+// No helper function
+// var rockPaperScissors = function(num, combinations, game) {
+//   var rounds = num || 3;
+//   var combinations = combinations || [];
+//   var choices = ['rock', 'paper', 'scissors'];
+//   var game = game || [];
+//   if (rounds === 0) {
+//     combinations.push(game.slice());
+//     return;
+//   }
+//   for (var i=0; i<choices.length; i++) {
+//     var choice = choices[i];
+//     game.push(choice);
+//     rockPaperScissors(rounds - 1, combinations, game);
+//     game.pop();
+//   }
+//   return combinations;
+// }
 
 console.log(rockPaperScissors(3));
