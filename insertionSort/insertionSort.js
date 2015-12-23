@@ -34,6 +34,7 @@
 // Example usage:
 // insertionSort([{value: 2}, {value: 1}, {value: 3}]);
 // yields [{value: 1}, {value: 2}, {value: 3}]
+// a - b -> ascending order
 
 // This function is to help you test, and should not be incorporated in your solution.
 // It will transform an array of numbers into an array of valid objects.
@@ -44,46 +45,18 @@ var testingTransform = function(array) {
   return transform;
 };
 
-var insertionSort = function(array) {
-  for (var i=1; i<array.length; i++) {
-    var obj = array[i];
-    var hole = i;
-
-    // Find the insertion point
-    while (hole && obj.value < array[hole - 1].value) { // need 'hole && ...' so while loop doesn't go on forever
-      var temp = array[hole];
-      array[hole] = array[hole-1];
-      array[hole-1] = temp;
-      hole -= 1;
+var insertionSort = function(arr) {
+  for (var i=1; i<arr.length; i++) {
+    while (i > 0 && arr[i].value < arr[i-1].value) {
+      var temp = arr[i];
+      arr[i] = arr[i-1];
+      arr[i-1] = temp;
+      i -= 1;
     }
-
-    // Insert the element
-    // array.splice(i, 1);
-    // array.splice(insertIndex, 0, obj);
-    // array[hole-1] = obj;
   }
-  return array;
+  return arr;
 }
 
-
-
-// var insertionSort = function(array) {
-//   for (var i=0; i<array.length; i++) {
-//     var count = 1;
-//     var obj = array[i];
-//     var prevObj = array[i-count];
-//     while (prevObj && obj.value < prevObj.value) {
-//       count++;
-//       var temp = prevObj;
-//       prevObj = obj;
-//       obj = temp;
-//     }
-//   }
-
-//   return array;
-// };
-
-var arrayOfObjs = testingTransform([5,2,4,4,6]);
-console.log(arrayOfObjs);
-
-console.log(insertionSort(arrayOfObjs));
+var test = testingTransform([1,3,2,2,4,5]);
+console.log(test);
+console.log('result: ', insertionSort(test));
