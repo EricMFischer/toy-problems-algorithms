@@ -38,7 +38,6 @@
  * evenNumbers.includes(2) should be true, evenNumbers.includes(3) should be false
  */
 
-
 var Range = function(start, end, step) {
   if (start === undefined) {return null;}
   this.start = start;
@@ -67,7 +66,6 @@ Range.prototype.each = function (callback) {
   }
 };
 
-
 Range.prototype.includes = function (val) {
   var count = 0;
   var size = Math.floor((this.end - this.start) / this.step) + 1;
@@ -81,15 +79,16 @@ Range.prototype.includes = function (val) {
   return false;
 };
 
-var evenNumbers = new Range(2,8,2); // A range with the even numbers 2, 4, 6, and 8
-console.log(evenNumbers);
 
-var each = evenNumbers.each(function(val) {
+var range = new Range(2,8,2); // A range with the even numbers 2, 4, 6, and 8
+console.log(range);
+
+var each = range.each(function(val) {
   console.log(val+"!");
 });
 
-var size = evenNumbers.size(); // should be 4
+var size = range.size(); // should be 4
 console.log(size);
 
-var includes = evenNumbers.includes(2); // should be true
+var includes = range.includes(2); // should be true
 console.log(includes);
