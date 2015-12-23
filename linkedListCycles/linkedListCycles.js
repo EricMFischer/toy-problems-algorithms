@@ -35,21 +35,20 @@ var Node = function(value){
   return { value: value, next: null };
 }
 
-var hasCycle = function(linkedList){
+var hasCycle = function(linkedList) {
   var tortoise = linkedList;
   var hare = linkedList.next;
   var result = false;
 
-  while (tortoise !== hare && hare !== null) {
+  while (hare !== null) { // tortoise !== hare && <-- not needed?
     tortoise = tortoise.next;
     hare = hare.next.next;
-    if (tortoise === hare) {result = true;}
-
+    if (hare === tortoise) {
+      return true;
+    }
   }
-
   return result;
-};
-
+}
 
 var nodeA = Node('A');
 var nodeB = nodeA.next = Node('B');

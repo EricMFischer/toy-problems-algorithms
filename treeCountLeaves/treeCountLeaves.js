@@ -1,4 +1,3 @@
-
 /**
   * Implement the `countLeaves` function in this Tree class.
   *
@@ -61,13 +60,13 @@ Tree.prototype.countLeaves = function () {
   * (wrap values in Tree nodes if they're not already)
   */
 Tree.prototype.addChild = function(child){
-  if (!child || !(child instanceof Tree)){
+  if(!child || !(child instanceof Tree)){
     child = new Tree(child);
   }
 
   if(!this.isDescendant(child)){
     this.children.push(child);
-  }else {
+  }else{
     throw new Error("That child is already a child of this tree");
   }
   // return the new child node for convenience

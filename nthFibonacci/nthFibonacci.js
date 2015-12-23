@@ -19,28 +19,25 @@
  * etc...
  */
 
-// var nthFibonacci = function (n) {
-//   // create an array that does what Fibonacci does
-//   var fibonacci = [0, 1];
-//   var recurse = function(n) {
-//     if (n === 0) {
-//       return;
-//     } else {
-//       for (var i = 2; i <= n; i++) {
-//         fibonacci[i] = (fibonacci[i-1] + fibonacci[i-2]);
-//       }
-//       recurse(n-1);
-//     }
-//   }
-//   recurse(n);
+// Old-fashioned recursive solution
+var fibonacci = function (n) {
+  // create an array that does what Fibonacci does
+  var arr = [0, 1];
+  var recurse = function(n) {
+    if (n === 0) {return;} 
+    else {
+      for (var i = 2; i <= n; i++) {
+        arr[i] = (arr[i-1] + arr[i-2]);
+      }
+      recurse(n-1);
+    }
+  }
+  recurse(n);
+  return arr[n];
+};
 
-//   return fibonacci[n];
-// };
-// console.log(nthFibonacci(3));
-
-// Solution
 var nthFibonacci = function(n) {
-  var fibonacci = [0,1];
+  var fibonacci = [0,1]; // values keep changing; constant space complexity
   for (var n = n; n > 1; n--) {
     fibonacci.push(fibonacci.shift() + fibonacci[0]);
   }
@@ -48,23 +45,22 @@ var nthFibonacci = function(n) {
 }
 
 console.log(nthFibonacci(4));
-// Space complexity is constant because we're disregarding the previous n's with the exception of the last two
 
-// As we increment up, we save each value in the array. So we'd just be accessing the last two places in our array without having to calculate them again. This is linear time.
-// var fibMem = function(n) {
-//   var mem = [];
-//   for (var i=0; i<n; i++) {
-//     mem[i] = i < 2 ? i : mem[i-1] + mem[i-2];
-//   }
-//   return mem[n];
-// }
+// Basic fibonacci solution saves each value in the array for later access by index. Linear time complexity.
+var fibMem = function(n) {
+  var mem = [];
+  for (var i=0; i<n; i++) {
+    mem[i] = i < 2 ? i : mem[i-1] + mem[i-2];
+  }
+  return mem[n];
+}
 
-// You can optimize it more (for constant time) by storing the nFib.mem array outside of the function. That way you're just looking up values in a global scope if you were to call it again with the same argument
-// var fibMem = function(n) {
-//   if (fibMem.mem[n]) {return fibMem.mem[n];}
-//   for (var i=0; i<=n; i++) {
-//     fibMem.mem[i] = i < 2 ? i : fibMem.mem[i-2] + fibMem.mem[i-1];
-//   }
-//   return fibMem.mem[n];
-// }
-// fibMem.mem = [];
+// Slight optimization: store the fibMem.mem array outside of the function, for global scope access.
+fibMem.mem = [];
+var fibMem = function(n) {
+  if (fibMem.mem[n]) {return fibMem.mem[n];} // checks to see if value's already been calculated
+  for (var i=0; i<=n; i++) {
+    fibMem.mem[i] = i < 2 ? i : fibMem.mem[i-2] + fibMem.mem[i-1];
+  }
+  return fibMem.mem[n];
+}

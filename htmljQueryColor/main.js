@@ -20,7 +20,7 @@ $(function(){
   $("p")[1].innerHTML = wrapped2;
 
   // --------------STEP 2--------------
-  // Next, change spans to random colors, once per second
+  // Next change spans to random colors, once per second
   var randomColor = function(){
     var red = Math.floor(Math.random() * 256);
     var green = Math.floor(Math.random() * 256);
