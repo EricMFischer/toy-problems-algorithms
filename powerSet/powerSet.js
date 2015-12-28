@@ -17,69 +17,42 @@
  * -> ["", "j", "ju", "jm", "jp", "jmu", "jmp", "jpu", "jmpu", "u", "m", "p", "mu", "mp", "pu", "mpu"]
  */
 
- var powerSet = function(str) {
+var powerSet = function(str) {
   var result = [''];
-  for (var i=0; i<str.length; i++) {
-    result.push(str[i]);
+
+  var recurse = function(run, str) {
+   for (var i=0; i<str.length; i++) {
+     var set = run.concat(str[i]); // jj, ju, jm, jp
+     set = set.split('').sort().join('');
+     if (!duplicates(set) && result.indexOf(set) === -1) { // ie it's not found in the result arr
+       result.push(set); // push set into result arr
+       recurse(set, str); // and also keep going with this set
+     }
+   }
+  }
+
+  var duplicates = function(str) {
+   var tracker = {};
+   for (var i=0; i<str.length; i++) {
+     var letter = str[i];
+     if (!tracker[letter]) {
+       tracker[letter] = true;
+     } else {
+       return true;
+     }
+   }
+   return false;
   }
   
-  var branch = [];
-
-  for (var i=1; i<result.length; i++) {
-    branch.push(result[i]);
-    sub(result.slice(1));
-    result.pop();
+  var str = str.split('').sort().join('') || '';
+  for (var i=0; i<str.length; i++) {
+    var letter = str[i];
+    if (letter !== str[i-1]) {
+      result.push(letter); // push individual letters into result arr: j,u,m,p
+      recurse(letter, str); 
+    }
   }
-
-  // var branch = [];
-  // var sub = function(result) {
-  //   if (result.length === 0) {result.push(branch.splice(0)); return;}
-  //   else {
-  //     for (var i=1; i<result.length; i++) {
-  //       debugger;
-  //       branch.push(result[i]);
-  //       if (result.indexOf(branch) === -1) {result.push(branch);}
-  //       sub(result.slice(1));
-  //       result.pop();
-  //     }
-  //   }
-  // }
-  // sub(result);
-
-
   return result;
- }
+}
 
-
-// var powerSet = function(str){
-//   str = str || ''; // take care of edge case
-//   var charArray = str.split('');
-//   var charLength = charArray.length;
-//   var letters = {}; // tracks all unique values
-//   var results = [''];
-
-//   for (var i=0; i<charLength; i++) {
-//     letters[i] = charArray[i];
-//   }
-
-//   var subroutine = function(charArray, lengthOfOutput) {
-//     var oneResult = [];
-//     for (var i=0; i<charArray.length; i++) {
-//       var initialBranch = charArray[i];
-//       oneResult.push(initialBranch);
-//       subroutine(charArray, lengthOfOutput + 1);
-//       oneResult.pop();
-//     }
-//   }
-//   subroutine(charArray, 0);
-
-//   // sort my results
-//   // eliminate duplicates
-//   return results;
-// }
-
-console.log(powerSet('abc'));
-
-
-
-
+console.log(powerSet('jjump'));
