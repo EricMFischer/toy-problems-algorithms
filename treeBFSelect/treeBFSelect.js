@@ -1,5 +1,4 @@
 /**
-  *
   * Implement a `BFSelect` method on this Tree class.
   *
   * BFSelect accepts a filter function, calls that function on each of the nodes
@@ -23,19 +22,35 @@
   *     return depth === 1;
   *   })
   *   // [2, 3]
-  *
   */
 
-/*
- * Basic tree that stores a value.
- */
+/* START SOLUTION */
 
 var Tree = function(value){
   this.value = value;
   this.children = [];
 };
 
-/* START SOLUTION */
+Tree.prototype.BFSelect = function(filter) {
+  // return an array of values for which the function filter(value, depth) returns true
+  var queue = new Queue();
+  queue.push({tree: this, depth: 0});
+  var results = [];
+
+  while (item = queue.pop()) {
+    var tree = item.tree;
+    var depth = item.depth;
+    if (filter(tree.value, depth)) {
+      results.push(tree.value);
+    }
+    for (var i=0; i<tree.children.length; i++) {
+      var node = tree.children[i];
+      queue.push({tree: node, depth: depth + 1});
+    }
+  }
+  return results;
+}
+
 var Queue = function() {
   var storage = [];
 
@@ -48,28 +63,6 @@ var Queue = function() {
   };
 };
 /* END SOLUTION */
-
-Tree.prototype.BFSelect = function(filter) {
-  // return an array of values for which the function filter(value, depth) returns true
-  var queue = new Queue();
-  var results = [];
-  queue.push({tree: this, depth: 0});
-
-  while (item = queue.pop()) {
-    console.log(item);
-    tree = item.tree;
-    depth = item.depth;
-    if (filter(tree.value, depth)) {
-      results.push(tree.value);
-    }
-    for (var i = 0; i < tree.children.length; i++) {
-      child = tree.children[i];
-      queue.push({tree: child, depth: depth + 1});
-    }
-  }
-
-  return results;
-};
 
 /**
   * add an immediate child
@@ -91,7 +84,7 @@ Tree.prototype.addChild = function(child){
 
 /**
   * check to see if the provided tree is already a child of this
-  * tree __or any of its sub trees__
+  * tree, or any of its sub trees
   */
 Tree.prototype.isDescendant = function(child){
   if(this.children.indexOf(child) !== -1){
@@ -147,3 +140,6 @@ console.log(root1.BFSelect(function (value, depth) {
 //   BFsearch(child, depth+1);
 // }
 // BFsearch(this, 0);
+
+
+
