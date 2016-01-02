@@ -46,12 +46,25 @@
 var rotateMatrix = function(matrix) {
   var answer = [];
   while (matrix[0].length>0) {
-    var result = [];
+    var oneArr = [];
     for (var i=matrix.length-1; i>=0; i--) {
-      var row = matrix[i];
-      result.push(row.shift());
+      var firstOfRow = matrix[i].shift();
+      oneArr.push(firstOfRow);
     }
-    answer.push(result);
+    answer.push(oneArr);
+  }
+  return answer;
+}
+
+var rotateMatrixCounterClockwise = function(matrix) {
+  var answer = [];
+  while (matrix[0].length>0) {
+    var oneArr = [];
+    for (var i=0; i<matrix.length; i++) {
+      var lastOfRow = matrix[i].pop();
+      oneArr.push(lastOfRow);
+    }
+    answer.push(oneArr);
   }
   return answer;
 }
