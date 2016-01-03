@@ -15,17 +15,21 @@
  * Target time complexity: O(log(array.length))
  */
 
-var rotatedArraySearch = function (rotated, target) {
-  var leftNum = rotated[0];
-  var rightNum = rotated[rotated.length - 1];
-  var midIndex = Math.floor(rotated.length / 2);
-  var middleNum = rotated[midIndex];
+var rotatedArraySearch = function (arr, target) {
+  
+  var sub = function(lowIndex, highIndex) {
+
+  }
+  sub(0, arr.length);
+  
+  var midpoint = Math.floor(arr.length / 2);
+  console.log(midpoint, 'midpoint');
   var indexOfTarget = null;
 
   if (leftNum < middleNum) {
     // 1st half (at least) of array is in increasing order
     if (target > leftNum)
-    rotatedArraySearch(rotated.slice(0, midIndex))
+    arrArraySearch(arr.slice(0, midIndex))
   }
 
   if (rightNum > middleNum) {
@@ -39,3 +43,4 @@ var rotatedArraySearch = function (rotated, target) {
   return indexOfTarget;
 };
 
+console.log(rotatedArraySearch([4, 5, 6, 0, 1, 2], 2));

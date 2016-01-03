@@ -23,5 +23,5 @@ var binarySearch = function(arr, element) {
   return sub(0, arr.length);
 }
 
-var findIndex = binarySearch([1, 2, 3, 4, 5], 4)
+var findIndex = binarySearch([1, 2, 3, 4], 2)
 console.log(findIndex); // [3]
