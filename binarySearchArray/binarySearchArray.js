@@ -8,24 +8,20 @@
  * console.log(index); // [3]
  */
 
-var binarySearch = function(array, element) {
-  var midpoint = Math.floor(array.length/2);
-  var firstHalf = array.slice(0, midpoint);
-  var secondHalf = array.slice(midpoint, array.length);
-  var secondHalfFirstValue = array[midpoint];
-
-  if (array[0] === element) {return 0;}
-  if (array[array.length-1] === element) {return array.length-1;}
-  if (array[midpoint] === element) {return midpoint;}
-
-  if (element === firstHalf[0] || element === secondHalf[0]) {
-    return midpoint;
-  } else if (element < secondHalfFirstValue) {
-    return binarySearch(firstHalf, element);
-  } else if (element > secondHalfFirstValue) {
-    return binarySearch(secondHalf, element);
+var binarySearch = function(arr, element) {
+  var sub = function(lowIndex, highIndex) {
+    if (lowIndex === highIndex) {return null;}
+    var mid = Math.floor((highIndex - lowIndex) / 2) + lowIndex;
+    if (element === arr[mid]) {
+      return mid;
+    } else if (element < arr[mid]) {
+      return sub(lowIndex, mid);
+    } else {
+      return sub(mid, highIndex);
+    }
   }
+  return sub(0, arr.length);
 }
 
-var findIndex = binarySearch([1, 2, 3, 4, 5, 6, 7, 8], 4);
+var findIndex = binarySearch([1, 2, 3, 4, 5], 4)
 console.log(findIndex); // [3]
